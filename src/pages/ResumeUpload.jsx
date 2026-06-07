@@ -5,7 +5,7 @@ import { extractResume, generateQuestionFromTopic } from '../api';
 export default function ResumeUpload() {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
   const [extracting, setExtracting] = useState(false);
   const [skills, setSkills] = useState([]);
   const [candidateName, setCandidateName] = useState('');
