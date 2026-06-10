@@ -17,7 +17,7 @@ export default function Landing() {
       r: Math.random() * 2 + 1,
       dx: (Math.random() - 0.5) * 0.5,
       dy: (Math.random() - 0.5) * 0.5,
-      opacity: Math.random() * 0.5 + 0.2,
+      opacity: Math.random() * 0.4 + 0.1,
     }));
 
     let animId;
@@ -26,7 +26,7 @@ export default function Landing() {
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 140, 0, ${p.opacity})`;
+        ctx.fillStyle = `rgba(0, 212, 255, ${p.opacity})`;
         ctx.fill();
         p.x += p.dx;
         p.y += p.dy;
@@ -54,56 +54,60 @@ export default function Landing() {
 
       {/* Navbar */}
       <nav style={styles.navbar}>
-        <div style={styles.logo}>⚡ InterviewAI</div>
+        <div style={styles.logo}>INTERVIEW<span style={styles.logoAccent}>AI</span></div>
         <div style={styles.navLinks}>
-          <span style={styles.navLink}>Features</span>
-          <span style={styles.navLink}>How it works</span>
-        <button style={styles.syllabusBtn} onClick={() => navigate('/custom-syllabus')}>
-            Get Started
+          <span style={styles.navLink}>FEATURES</span>
+          <span style={styles.navLink}>HOW IT WORKS</span>
+          <button style={styles.navBtn} onClick={() => navigate('/login')}>
+            GET STARTED
           </button>
         </div>
       </nav>
 
       {/* Hero Section */}
       <div style={styles.hero}>
-        <div style={styles.badge}>🎯 AI Powered Interview Platform</div>
+        <div style={styles.badge}>
+          <span style={styles.badgeDot}></span>
+          AI POWERED INTERVIEW PLATFORM — ACTIVE
+        </div>
 
         <h1 style={styles.heading}>
-          Crack Your Dream
-          <span style={styles.gradientText}> Interview </span>
-          With AI
+          CRACK YOUR<br />
+          DREAM<br />
+          <span style={styles.outlineText}>INTERVIEW</span><br />
+          <span style={styles.accentText}>WITH AI</span>
         </h1>
 
         <p style={styles.subText}>
           Upload your syllabus — AI will conduct your real interview
-          with Voice, Video, and instant feedback! 🚀
+          with Voice, Video, and instant feedback.
         </p>
 
         <div style={styles.btnGroup}>
           <button
             style={styles.primaryBtn}
             onClick={() => navigate('/login')}
-            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+            onMouseEnter={e => e.currentTarget.style.background = '#00bfdd'}
+            onMouseLeave={e => e.currentTarget.style.background = '#00D4FF'}
           >
-            🚀 Start for Free
+            START FOR FREE ▶
           </button>
           <button
             style={styles.secondaryBtn}
-            onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-            onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+            onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'}
+            onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'}
           >
-            ▶ Watch Demo
+            WATCH DEMO
           </button>
         </div>
 
         {/* Stats */}
         <div style={styles.statsRow}>
           {[
-            { num: '10K+', label: 'Interviews Done' },
-            { num: '95%', label: 'Success Rate' },
-            { num: '500+', label: 'Companies' },
-            { num: '100%', label: 'Free' },
+            { num: '10K+', label: 'INTERVIEWS DONE' },
+            { num: '95%', label: 'SUCCESS RATE' },
+            { num: '500+', label: 'COMPANIES' },
+            { num: '100%', label: 'FREE' },
           ].map((s, i) => (
             <div key={i} style={styles.statCard}>
               <div style={styles.statNum}>{s.num}</div>
@@ -115,70 +119,73 @@ export default function Landing() {
 
       {/* Resume Upload Section */}
       <div style={styles.uploadSection}>
-        <h2 style={styles.sectionTitle}>Upload Resume — Start Interview! 📄</h2>
+        <div style={styles.sectionBadge}>RESUME UPLOAD</div>
+        <h2 style={styles.sectionTitle}>UPLOAD RESUME —<br />START INTERVIEW</h2>
         <p style={styles.uploadDesc}>
-          Upload your resume → AI detects your syllabus → Video interview starts instantly!
+          Upload your resume → AI detects your syllabus → Video interview starts instantly.
         </p>
         <div
           style={styles.uploadBox}
-          onMouseEnter={e => e.currentTarget.style.borderColor = '#ff8c00'}
-          onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,140,0,0.3)'}
+          onMouseEnter={e => e.currentTarget.style.borderColor = '#00D4FF'}
+          onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(0,212,255,0.2)'}
           onClick={() => navigate('/login')}
         >
           <div style={styles.uploadIcon}>📄</div>
-          <p style={styles.uploadText}>Click or drop your PDF here</p>
-          <p style={styles.uploadSubText}>Video Interview starts immediately after upload! 🎥</p>
-          <button style={styles.uploadBtn}>Upload Resume</button>
+          <p style={styles.uploadText}>CLICK OR DROP YOUR PDF HERE</p>
+          <p style={styles.uploadSubText}>Video Interview starts immediately after upload</p>
+          <button style={styles.uploadBtn}>UPLOAD RESUME</button>
         </div>
+
         {/* Custom Syllabus Section */}
-<div style={styles.customSyllabusSection}>
-  <h2 style={styles.sectionTitle}>🎯 Custom Syllabus Interview</h2>
-  <p style={styles.uploadDesc}>Apni skills aur topics type karo — AI usi pe interview lega. Resume nahi hai? Koi baat nahi!</p>
+        <div style={styles.customSyllabusSection}>
+          <div style={styles.sectionBadge}>CUSTOM SYLLABUS</div>
+          <h2 style={styles.sectionTitle}>BUILD YOUR OWN<br />INTERVIEW</h2>
+          <p style={styles.uploadDesc}>Apni skills aur topics type karo — AI usi pe interview lega. Resume nahi hai? Koi baat nahi!</p>
 
-  <div style={styles.syllabusDemo}>
-    <div style={styles.syllabusDemoLeft}>
-      {[
-        { skill: 'Python', topics: 'if else, loops, OOP, functions, list, tuple' },
-        { skill: 'React', topics: 'hooks, useState, useEffect, props, routing' },
-        { skill: 'SQL', topics: 'joins, indexing, subquery, aggregation' },
-      ].map((ex, i) => (
-        <div key={i} style={styles.syllabusRow}>
-          <span style={styles.syllabusSkill}>{ex.skill}</span>
-          <span style={styles.syllabusArrow}>→</span>
-          <span style={styles.syllabusTopics}>{ex.topics}</span>
+          <div style={styles.syllabusDemo}>
+            <div style={styles.syllabusDemoLeft}>
+              {[
+                { skill: 'Python', topics: 'if else, loops, OOP, functions, list, tuple' },
+                { skill: 'React', topics: 'hooks, useState, useEffect, props, routing' },
+                { skill: 'SQL', topics: 'joins, indexing, subquery, aggregation' },
+              ].map((ex, i) => (
+                <div key={i} style={styles.syllabusRow}>
+                  <span style={styles.syllabusSkill}>{ex.skill}</span>
+                  <span style={styles.syllabusArrow}>→</span>
+                  <span style={styles.syllabusTopics}>{ex.topics}</span>
+                </div>
+              ))}
+            </div>
+            <div style={styles.syllabusDemoRight}>
+              <div style={styles.syllabusResult}>
+                <div style={styles.syllabusResultNum}>15</div>
+                <div style={styles.syllabusResultLabel}>QUESTIONS</div>
+                <div style={styles.syllabusResultSub}>3 skills × avg 5 topics</div>
+              </div>
+            </div>
+          </div>
+
+          <button style={styles.syllabusBtn} onClick={() => navigate('/login')}>
+            CREATE CUSTOM INTERVIEW ▶
+          </button>
         </div>
-      ))}
-    </div>
-    <div style={styles.syllabusDemoRight}>
-      <div style={styles.syllabusResult}>
-        <div style={styles.syllabusResultNum}>15</div>
-        <div style={styles.syllabusResultLabel}>Questions</div>
-        <div style={styles.syllabusResultSub}>3 skills × avg 5 topics</div>
-      </div>
-    </div>
-  </div>
-
-  <button style={styles.syllabusBtn} onClick={() => navigate('/login')}>
-    🎯 Create Custom Interview
-  </button>
-</div>
 
         {/* Flow Steps */}
         <div style={styles.flowRow}>
           {[
-            { icon: '📄', step: '1', label: 'Resume Upload' },
-            { icon: '→', step: '', label: '' },
-            { icon: '🤖', step: '2', label: 'AI Syllabus Detect' },
-            { icon: '→', step: '', label: '' },
-            { icon: '🎥', step: '3', label: 'Video Interview' },
-            { icon: '→', step: '', label: '' },
-            { icon: '📊', step: '4', label: 'AI Feedback' },
+            { icon: '📄', label: 'Resume Upload' },
+            { icon: '→', label: '' },
+            { icon: '🤖', label: 'AI Detect' },
+            { icon: '→', label: '' },
+            { icon: '🎥', label: 'Video Interview' },
+            { icon: '→', label: '' },
+            { icon: '📊', label: 'AI Feedback' },
           ].map((f, i) => (
             f.icon === '→'
               ? <div key={i} style={styles.arrow}>→</div>
               : <div key={i} style={styles.flowStep}>
                   <div style={styles.flowIcon}>{f.icon}</div>
-                  <div style={styles.flowLabel}>{f.label}</div>
+                  <div style={styles.flowLabel}>{f.label.toUpperCase()}</div>
                 </div>
           ))}
         </div>
@@ -186,26 +193,29 @@ export default function Landing() {
 
       {/* Features Section */}
       <div style={styles.featuresSection}>
-        <h2 style={styles.sectionTitle}>What You Get 🎁</h2>
+        <div style={styles.sectionBadge}>FEATURES</div>
+        <h2 style={styles.sectionTitle}>WHAT YOU GET</h2>
         <div style={styles.featuresGrid}>
           {[
-            { icon: '🤖', title: 'AI Questions', desc: 'Personalized questions generated from your own syllabus' },
-            { icon: '🎤', title: 'Voice Answer', desc: 'Speak your answers — no typing required' },
-            { icon: '📹', title: 'Video Interview', desc: 'Feel like a real interview — practice with camera on' },
-            { icon: '📄', title: 'Resume Upload', desc: 'Upload your resume — AI auto-detects your syllabus' },
-            { icon: '🏆', title: 'Leaderboard', desc: 'Compete with friends and climb to the top' },
-            { icon: '📊', title: 'AI Feedback', desc: 'Detailed feedback and improvement tips for every answer' },
+            { icon: '🤖', title: 'AI QUESTIONS', desc: 'Personalized questions generated from your own syllabus' },
+            { icon: '🎤', title: 'VOICE ANSWER', desc: 'Speak your answers — no typing required' },
+            { icon: '📹', title: 'VIDEO INTERVIEW', desc: 'Feel like a real interview — practice with camera on' },
+            { icon: '📄', title: 'RESUME UPLOAD', desc: 'Upload your resume — AI auto-detects your syllabus' },
+            { icon: '🏆', title: 'LEADERBOARD', desc: 'Compete with friends and climb to the top' },
+            { icon: '📊', title: 'AI FEEDBACK', desc: 'Detailed feedback and improvement tips for every answer' },
           ].map((f, i) => (
             <div
               key={i}
               style={styles.featureCard}
               onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-10px)';
-                e.currentTarget.style.borderColor = '#ff8c00';
+                e.currentTarget.style.transform = 'translateY(-8px)';
+                e.currentTarget.style.borderColor = '#00D4FF';
+                e.currentTarget.style.borderLeftColor = '#FF0040';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.borderColor = 'rgba(255,140,0,0.2)';
+                e.currentTarget.style.borderColor = 'rgba(0,212,255,0.15)';
+                e.currentTarget.style.borderLeftColor = 'rgba(0,212,255,0.15)';
               }}
             >
               <div style={styles.featureIcon}>{f.icon}</div>
@@ -218,21 +228,23 @@ export default function Landing() {
 
       {/* CTA Section */}
       <div style={styles.ctaSection}>
-        <h2 style={styles.ctaTitle}>Ready to Begin? 💪</h2>
-        <p style={styles.ctaDesc}>Start practicing today — completely free!</p>
+        <div style={styles.sectionBadge}>GET STARTED</div>
+        <h2 style={styles.ctaTitle}>READY TO<br /><span style={styles.accentText}>BEGIN?</span></h2>
+        <p style={styles.ctaDesc}>Start practicing today — completely free.</p>
         <button
           style={styles.primaryBtn}
           onClick={() => navigate('/login')}
-          onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
-          onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
+          onMouseEnter={e => e.currentTarget.style.background = '#00bfdd'}
+          onMouseLeave={e => e.currentTarget.style.background = '#00D4FF'}
         >
-          🚀 Get Started Now
+          GET STARTED NOW ▶
         </button>
       </div>
 
       {/* Footer */}
       <footer style={styles.footer}>
-        <p>Made with ❤️ by InterviewAI Team</p>
+        <div style={styles.footerLogo}>INTERVIEW<span style={styles.logoAccent}>AI</span></div>
+        <p style={styles.footerText}>Made with ❤️ by InterviewAI Team</p>
       </footer>
     </div>
   );
@@ -241,10 +253,11 @@ export default function Landing() {
 const styles = {
   container: {
     minHeight: '100vh',
-    background: '#0a0a0f',
+    background: '#0d0d12',
     color: '#fff',
     position: 'relative',
     overflowX: 'hidden',
+    fontFamily: "'Inter', sans-serif",
   },
   canvas: {
     position: 'fixed',
@@ -253,202 +266,311 @@ const styles = {
     zIndex: 0,
     pointerEvents: 'none',
   },
-  customSyllabusSection: { position: 'relative', zIndex: 1, padding: '80px 60px', textAlign: 'center', borderTop: '1px solid rgba(255,140,0,0.1)' },
-syllabusDemo: { display: 'flex', gap: '32px', maxWidth: '800px', margin: '0 auto 40px', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' },
-syllabusDemoLeft: { flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', minWidth: '300px' },
-syllabusRow: { display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,140,0,0.12)', borderRadius: '12px', padding: '14px 18px', textAlign: 'left' },
-syllabusSkill: { fontSize: '15px', fontWeight: '800', color: '#ffd700', minWidth: '60px' },
-syllabusArrow: { color: '#ff8c00', fontSize: '18px' },
-syllabusTopics: { fontSize: '13px', color: 'rgba(255,255,255,0.5)' },
-syllabusDemoRight: { flexShrink: 0 },
-syllabusResult: { background: 'rgba(255,140,0,0.08)', border: '2px solid rgba(255,140,0,0.3)', borderRadius: '20px', padding: '32px 40px', textAlign: 'center' },
-syllabusResultNum: { fontSize: '56px', fontWeight: '900', background: 'linear-gradient(135deg, #ff8c00, #ffd700)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
-syllabusResultLabel: { fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '4px' },
-syllabusResultSub: { fontSize: '13px', color: 'rgba(255,255,255,0.4)' },
-syllabusBtn: { background: 'linear-gradient(135deg, #ff8c00, #ffd700)', border: 'none', borderRadius: '30px', padding: '16px 40px', color: '#000', fontWeight: '800', fontSize: '16px', cursor: 'pointer' },
+
+  // Navbar
   navbar: {
     position: 'fixed',
     top: 0, left: 0, right: 0,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '20px 60px',
-    background: 'rgba(10,10,15,0.85)',
+    padding: '18px 60px',
+    background: 'rgba(13,13,18,0.92)',
     backdropFilter: 'blur(10px)',
-    borderBottom: '1px solid rgba(255,140,0,0.2)',
+    borderBottom: '1px solid rgba(0,212,255,0.15)',
     zIndex: 100,
   },
   logo: {
-    fontSize: '24px',
-    fontWeight: '800',
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    fontSize: '20px',
+    fontWeight: '900',
+    color: '#fff',
+    letterSpacing: '3px',
+  },
+  logoAccent: {
+    color: '#00D4FF',
   },
   navLinks: {
     display: 'flex',
     alignItems: 'center',
-    gap: '30px',
+    gap: '32px',
   },
   navLink: {
-    color: 'rgba(255,255,255,0.7)',
+    color: 'rgba(255,255,255,0.45)',
     cursor: 'pointer',
-    fontSize: '15px',
+    fontSize: '11px',
+    letterSpacing: '2px',
+    fontWeight: '600',
   },
   navBtn: {
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
+    background: '#00D4FF',
     border: 'none',
-    borderRadius: '25px',
-    padding: '10px 24px',
+    padding: '8px 20px',
     color: '#000',
-    fontWeight: '700',
+    fontWeight: '800',
     cursor: 'pointer',
-    fontSize: '14px',
+    fontSize: '11px',
+    letterSpacing: '2px',
+    clipPath: 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
+    transition: 'background 0.2s',
   },
+
+  // Hero
   hero: {
     position: 'relative',
     zIndex: 1,
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    textAlign: 'center',
+    alignItems: 'flex-start',
     paddingTop: '160px',
     paddingBottom: '80px',
-    paddingLeft: '20px',
-    paddingRight: '20px',
+    paddingLeft: '80px',
+    paddingRight: '40px',
+    maxWidth: '900px',
   },
   badge: {
-    background: 'rgba(255,140,0,0.15)',
-    border: '1px solid rgba(255,140,0,0.4)',
-    borderRadius: '20px',
-    padding: '8px 20px',
-    fontSize: '14px',
-    color: '#ffb347',
-    marginBottom: '24px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    fontSize: '10px',
+    color: '#00D4FF',
+    letterSpacing: '2px',
+    fontWeight: '600',
+    border: '1px solid rgba(0,212,255,0.3)',
+    padding: '6px 14px',
+    marginBottom: '28px',
+  },
+  badgeDot: {
+    width: '7px',
+    height: '7px',
+    background: '#00D4FF',
+    borderRadius: '50%',
+    display: 'inline-block',
+    boxShadow: '0 0 6px #00D4FF',
   },
   heading: {
-    fontSize: '64px',
+    fontSize: '80px',
     fontWeight: '900',
-    lineHeight: 1.1,
-    marginBottom: '24px',
-    maxWidth: '800px',
+    lineHeight: 0.95,
+    marginBottom: '28px',
+    textTransform: 'uppercase',
+    letterSpacing: '-1px',
   },
-  gradientText: {
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+  outlineText: {
+    color: 'transparent',
+    WebkitTextStroke: '2px #00D4FF',
+  },
+  accentText: {
+    color: '#FF0040',
   },
   subText: {
-    fontSize: '20px',
-    color: 'rgba(255,255,255,0.6)',
-    maxWidth: '600px',
-    lineHeight: 1.6,
+    fontSize: '16px',
+    color: 'rgba(255,255,255,0.45)',
+    maxWidth: '500px',
+    lineHeight: 1.7,
     marginBottom: '40px',
+    letterSpacing: '0.3px',
   },
   btnGroup: {
     display: 'flex',
-    gap: '16px',
+    gap: '14px',
     marginBottom: '60px',
     flexWrap: 'wrap',
-    justifyContent: 'center',
   },
   primaryBtn: {
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
+    background: '#00D4FF',
     border: 'none',
-    borderRadius: '30px',
-    padding: '16px 36px',
+    padding: '14px 32px',
     color: '#000',
     fontWeight: '800',
-    fontSize: '16px',
+    fontSize: '12px',
     cursor: 'pointer',
-    transition: 'transform 0.2s',
+    letterSpacing: '2px',
+    clipPath: 'polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)',
+    transition: 'background 0.2s',
   },
   secondaryBtn: {
     background: 'transparent',
-    border: '2px solid rgba(255,140,0,0.5)',
-    borderRadius: '30px',
-    padding: '16px 36px',
+    border: '1px solid rgba(255,255,255,0.2)',
+    padding: '14px 32px',
     color: '#fff',
     fontWeight: '700',
-    fontSize: '16px',
+    fontSize: '12px',
     cursor: 'pointer',
-    transition: 'transform 0.2s',
+    letterSpacing: '2px',
+    transition: 'border-color 0.2s',
   },
   statsRow: {
     display: 'flex',
-    gap: '24px',
+    gap: '16px',
     flexWrap: 'wrap',
-    justifyContent: 'center',
   },
   statCard: {
-    background: 'rgba(255,140,0,0.08)',
-    border: '1px solid rgba(255,140,0,0.2)',
-    borderRadius: '16px',
-    padding: '20px 32px',
+    background: 'rgba(0,212,255,0.05)',
+    border: '1px solid rgba(0,212,255,0.15)',
+    padding: '18px 28px',
     textAlign: 'center',
   },
   statNum: {
-    fontSize: '32px',
-    fontWeight: '800',
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    fontSize: '28px',
+    fontWeight: '900',
+    color: '#00D4FF',
+    letterSpacing: '-0.5px',
   },
   statLabel: {
-    fontSize: '13px',
-    color: 'rgba(255,255,255,0.5)',
+    fontSize: '9px',
+    color: 'rgba(255,255,255,0.35)',
     marginTop: '4px',
+    letterSpacing: '1.5px',
+    fontWeight: '600',
   },
+
+  // Upload Section
   uploadSection: {
     position: 'relative',
     zIndex: 1,
-    padding: '80px 60px',
-    textAlign: 'center',
-    background: 'rgba(255,140,0,0.03)',
-    borderTop: '1px solid rgba(255,140,0,0.1)',
+    padding: '80px 80px',
+    borderTop: '1px solid rgba(0,212,255,0.1)',
+    background: 'rgba(0,212,255,0.02)',
+  },
+  sectionBadge: {
+    display: 'inline-block',
+    fontSize: '10px',
+    color: '#00D4FF',
+    letterSpacing: '3px',
+    fontWeight: '700',
+    borderLeft: '3px solid #FF0040',
+    paddingLeft: '12px',
+    marginBottom: '16px',
+  },
+  sectionTitle: {
+    fontSize: '48px',
+    fontWeight: '900',
+    marginBottom: '16px',
+    textTransform: 'uppercase',
+    letterSpacing: '-1px',
+    lineHeight: 1,
   },
   uploadDesc: {
-    fontSize: '16px',
-    color: 'rgba(255,255,255,0.55)',
+    fontSize: '15px',
+    color: 'rgba(255,255,255,0.4)',
     marginBottom: '32px',
+    letterSpacing: '0.3px',
   },
   uploadBox: {
-    border: '2px dashed rgba(255,140,0,0.3)',
-    borderRadius: '24px',
+    border: '1px solid rgba(0,212,255,0.2)',
     padding: '60px 40px',
     maxWidth: '600px',
-    margin: '0 auto 48px',
     cursor: 'pointer',
     transition: 'border-color 0.3s',
-    background: 'rgba(255,140,0,0.04)',
+    background: 'rgba(0,212,255,0.03)',
+    textAlign: 'center',
+    marginBottom: '60px',
   },
-  uploadIcon: { fontSize: '56px', marginBottom: '16px' },
+  uploadIcon: { fontSize: '48px', marginBottom: '16px' },
   uploadText: {
-    fontSize: '18px',
-    fontWeight: '600',
+    fontSize: '14px',
+    fontWeight: '700',
+    letterSpacing: '2px',
     marginBottom: '8px',
   },
   uploadSubText: {
-    fontSize: '14px',
-    color: 'rgba(255,255,255,0.45)',
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.35)',
     marginBottom: '24px',
+    letterSpacing: '0.3px',
   },
   uploadBtn: {
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
+    background: '#00D4FF',
     border: 'none',
-    borderRadius: '25px',
-    padding: '12px 32px',
+    padding: '10px 28px',
     color: '#000',
-    fontWeight: '700',
-    fontSize: '15px',
+    fontWeight: '800',
+    fontSize: '11px',
     cursor: 'pointer',
+    letterSpacing: '2px',
+    clipPath: 'polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)',
   },
+
+  // Custom Syllabus
+  customSyllabusSection: {
+    position: 'relative',
+    zIndex: 1,
+    padding: '60px 0',
+    borderTop: '1px solid rgba(0,212,255,0.08)',
+  },
+  syllabusDemo: {
+    display: 'flex',
+    gap: '32px',
+    maxWidth: '800px',
+    margin: '0 0 40px',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+  },
+  syllabusDemoLeft: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    minWidth: '300px',
+  },
+  syllabusRow: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    background: 'rgba(255,255,255,0.02)',
+    border: '1px solid rgba(0,212,255,0.1)',
+    padding: '12px 16px',
+    textAlign: 'left',
+  },
+  syllabusSkill: {
+    fontSize: '13px',
+    fontWeight: '800',
+    color: '#00D4FF',
+    minWidth: '60px',
+    letterSpacing: '1px',
+  },
+  syllabusArrow: { color: '#FF0040', fontSize: '16px' },
+  syllabusTopics: { fontSize: '12px', color: 'rgba(255,255,255,0.4)' },
+  syllabusDemoRight: { flexShrink: 0 },
+  syllabusResult: {
+    background: 'rgba(0,212,255,0.05)',
+    border: '1px solid rgba(0,212,255,0.2)',
+    padding: '32px 40px',
+    textAlign: 'center',
+  },
+  syllabusResultNum: {
+    fontSize: '56px',
+    fontWeight: '900',
+    color: '#00D4FF',
+  },
+  syllabusResultLabel: {
+    fontSize: '12px',
+    fontWeight: '700',
+    color: '#fff',
+    letterSpacing: '3px',
+    marginBottom: '4px',
+  },
+  syllabusResultSub: { fontSize: '11px', color: 'rgba(255,255,255,0.3)' },
+  syllabusBtn: {
+    background: '#00D4FF',
+    border: 'none',
+    padding: '14px 36px',
+    color: '#000',
+    fontWeight: '800',
+    fontSize: '12px',
+    cursor: 'pointer',
+    letterSpacing: '2px',
+    clipPath: 'polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%)',
+    transition: 'background 0.2s',
+  },
+
+  // Flow
   flowRow: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: '12px',
     flexWrap: 'wrap',
+    marginTop: '60px',
   },
   flowStep: {
     display: 'flex',
@@ -457,73 +579,106 @@ syllabusBtn: { background: 'linear-gradient(135deg, #ff8c00, #ffd700)', border: 
     gap: '8px',
   },
   flowIcon: {
-    fontSize: '32px',
-    background: 'rgba(255,140,0,0.1)',
-    border: '1px solid rgba(255,140,0,0.3)',
-    borderRadius: '50%',
-    width: '60px',
-    height: '60px',
+    fontSize: '28px',
+    background: 'rgba(0,212,255,0.08)',
+    border: '1px solid rgba(0,212,255,0.25)',
+    width: '56px',
+    height: '56px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   flowLabel: {
-    fontSize: '12px',
-    color: 'rgba(255,255,255,0.6)',
-    textAlign: 'center',
+    fontSize: '9px',
+    color: 'rgba(255,255,255,0.4)',
+    letterSpacing: '1px',
+    fontWeight: '600',
   },
   arrow: {
-    fontSize: '24px',
-    color: '#ff8c00',
+    fontSize: '20px',
+    color: '#FF0040',
     marginBottom: '20px',
+    fontWeight: '700',
   },
+
+  // Features
   featuresSection: {
     position: 'relative',
     zIndex: 1,
-    padding: '80px 60px',
-    textAlign: 'center',
-  },
-  sectionTitle: {
-    fontSize: '42px',
-    fontWeight: '800',
-    marginBottom: '16px',
+    padding: '80px 80px',
+    borderTop: '1px solid rgba(0,212,255,0.1)',
   },
   featuresGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '24px',
+    gap: '16px',
     maxWidth: '1100px',
-    margin: '0 auto',
+    marginTop: '32px',
   },
   featureCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,140,0,0.2)',
-    borderRadius: '20px',
-    padding: '32px 24px',
+    background: 'rgba(255,255,255,0.02)',
+    border: '1px solid rgba(0,212,255,0.15)',
+    borderLeft: '3px solid rgba(0,212,255,0.15)',
+    padding: '28px 24px',
     textAlign: 'left',
     transition: 'transform 0.3s, border-color 0.3s',
     cursor: 'default',
   },
-  featureIcon: { fontSize: '40px', marginBottom: '16px' },
-  featureTitle: { fontSize: '20px', fontWeight: '700', marginBottom: '10px' },
-  featureDesc: { fontSize: '14px', color: 'rgba(255,255,255,0.55)', lineHeight: 1.6 },
+  featureIcon: { fontSize: '36px', marginBottom: '14px' },
+  featureTitle: {
+    fontSize: '13px',
+    fontWeight: '800',
+    letterSpacing: '2px',
+    marginBottom: '10px',
+    color: '#fff',
+  },
+  featureDesc: {
+    fontSize: '13px',
+    color: 'rgba(255,255,255,0.4)',
+    lineHeight: 1.7,
+  },
+
+  // CTA
   ctaSection: {
     position: 'relative',
     zIndex: 1,
-    textAlign: 'center',
-    padding: '80px 20px',
-    background: 'rgba(255,140,0,0.05)',
-    borderTop: '1px solid rgba(255,140,0,0.15)',
-    borderBottom: '1px solid rgba(255,140,0,0.15)',
+    padding: '80px 80px',
+    borderTop: '1px solid rgba(0,212,255,0.1)',
+    background: 'rgba(255,0,64,0.03)',
   },
-  ctaTitle: { fontSize: '48px', fontWeight: '900', marginBottom: '16px' },
-  ctaDesc: { fontSize: '18px', color: 'rgba(255,255,255,0.6)', marginBottom: '32px' },
+  ctaTitle: {
+    fontSize: '72px',
+    fontWeight: '900',
+    marginBottom: '16px',
+    lineHeight: 0.95,
+    textTransform: 'uppercase',
+    letterSpacing: '-1px',
+  },
+  ctaDesc: {
+    fontSize: '15px',
+    color: 'rgba(255,255,255,0.4)',
+    marginBottom: '36px',
+    letterSpacing: '0.3px',
+  },
+
+  // Footer
   footer: {
     position: 'relative',
     zIndex: 1,
-    textAlign: 'center',
-    padding: '30px',
-    color: 'rgba(255,255,255,0.3)',
-    fontSize: '14px',
+    padding: '40px 80px',
+    borderTop: '1px solid rgba(0,212,255,0.1)',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  footerLogo: {
+    fontSize: '16px',
+    fontWeight: '900',
+    color: '#fff',
+    letterSpacing: '3px',
+  },
+  footerText: {
+    color: 'rgba(255,255,255,0.2)',
+    fontSize: '13px',
   },
 };
