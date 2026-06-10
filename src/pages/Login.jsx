@@ -35,70 +35,108 @@ export default function Login() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.glowOrb1} />
-      <div style={styles.glowOrb2} />
-
       <div style={styles.card}>
-        <div style={styles.logo}>⚡ InterviewAI</div>
-        <h2 style={styles.title}>{isLogin ? 'Welcome Back 👋' : 'Create Account 🚀'}</h2>
-        <p style={styles.sub}>{isLogin ? 'Login to continue your practice' : 'Start your interview journey'}</p>
 
-        {error && <div style={styles.errorBox}>{error}</div>}
+        {/* Left red rule line */}
+        <div style={styles.redRule} />
 
-        <form onSubmit={handleSubmit} style={styles.form}>
-          {!isLogin && (
+        <div style={styles.inner}>
+          {/* Logo */}
+          <div style={styles.logo}>
+            INTERVIEW<span style={styles.logoAccent}>AI</span>
+          </div>
+          <div style={styles.logoUnderline} />
+
+          {/* Badge */}
+          <div style={styles.badge}>
+            // {isLogin ? 'SECURE LOGIN — ACTIVE' : 'CREATE ACCOUNT — ACTIVE'}
+          </div>
+
+          {/* Title */}
+          <h2 style={styles.title}>
+            {isLogin ? (
+              <>WELCOME<span style={styles.titleAccent}>BACK</span></>
+            ) : (
+              <>JOIN<span style={styles.titleAccent}>NOW</span></>
+            )}
+          </h2>
+
+          <p style={styles.sub}>
+            {isLogin ? 'Login to continue your practice' : 'Start your interview journey'}
+          </p>
+
+          {/* Error */}
+          {error && <div style={styles.errorBox}>{error}</div>}
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} style={styles.form}>
+            {!isLogin && (
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>FULL NAME</label>
+                <input
+                  style={styles.input}
+                  type="text"
+                  placeholder="Nitin Jaiswal"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+
             <div style={styles.inputGroup}>
-              <label style={styles.label}>Full Name</label>
+              <label style={styles.label}>EMAIL ADDRESS</label>
               <input
                 style={styles.input}
-                type="text"
-                placeholder="Nitin Jaiswal"
-                value={name}
-                onChange={e => setName(e.target.value)}
+                type="email"
+                placeholder="nitin@example.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 required
               />
             </div>
-          )}
 
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Email</label>
-            <input
-              style={styles.input}
-              type="email"
-              placeholder="nitin@example.com"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-            />
+            <div style={styles.inputGroup}>
+              <label style={styles.label}>PASSWORD</label>
+              <input
+                style={styles.input}
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              style={{ ...styles.submitBtn, opacity: loading ? 0.7 : 1 }}
+              disabled={loading}
+              onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#cc0033'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = '#FF0040'; }}
+            >
+              {loading ? 'PLEASE WAIT...' : isLogin ? 'LOGIN ▶' : 'REGISTER ▶'}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div style={styles.divider}>
+            <div style={styles.dividerLine} />
+            <span style={styles.dividerText}>OR</span>
+            <div style={styles.dividerLine} />
           </div>
 
-          <div style={styles.inputGroup}>
-            <label style={styles.label}>Password</label>
-            <input
-              style={styles.input}
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            style={{ ...styles.submitBtn, opacity: loading ? 0.7 : 1 }}
-            disabled={loading}
-          >
-            {loading ? '⏳ Please wait...' : isLogin ? '🔑 Login' : '🚀 Register'}
-          </button>
-        </form>
-
-        <p style={styles.switchText}>
-          {isLogin ? "Don't have an account? " : 'Already have an account? '}
-          <span style={styles.switchLink} onClick={() => { setIsLogin(!isLogin); setError(''); }}>
-            {isLogin ? 'Register' : 'Login'}
-          </span>
-        </p>
+          {/* Switch */}
+          <p style={styles.switchText}>
+            {isLogin ? "Don't have an account? " : 'Already have an account? '}
+            <span
+              style={styles.switchLink}
+              onClick={() => { setIsLogin(!isLogin); setError(''); }}
+            >
+              {isLogin ? 'REGISTER' : 'LOGIN'}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -106,58 +144,152 @@ export default function Login() {
 
 const styles = {
   container: {
-    minHeight: '100vh', background: '#0a0a0f',
-    display: 'flex', alignItems: 'center', justifyContent: 'center',
-    position: 'relative', overflow: 'hidden',
-  },
-  glowOrb1: {
-    position: 'fixed', top: '-150px', left: '-150px',
-    width: '500px', height: '500px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(255,140,0,0.08), transparent)',
-    pointerEvents: 'none',
-  },
-  glowOrb2: {
-    position: 'fixed', bottom: '-150px', right: '-150px',
-    width: '500px', height: '500px', borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(255,215,0,0.06), transparent)',
-    pointerEvents: 'none',
+    minHeight: '100vh',
+    background: '#0a0a0a',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    fontFamily: "'Inter', sans-serif",
   },
   card: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,140,0,0.15)',
-    borderRadius: '24px', padding: '48px 40px',
-    width: '100%', maxWidth: '420px',
-    position: 'relative', zIndex: 1,
+    display: 'flex',
+    width: '100%',
+    maxWidth: '440px',
+    background: '#111',
+    border: '1px solid rgba(255,0,64,0.15)',
+    position: 'relative',
+  },
+  redRule: {
+    width: '4px',
+    background: '#FF0040',
+    flexShrink: 0,
+  },
+  inner: {
+    padding: '48px 36px',
+    flex: 1,
   },
   logo: {
-    fontSize: '22px', fontWeight: '800', marginBottom: '24px',
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
-    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+    fontSize: '18px',
+    fontWeight: '900',
+    color: '#fff',
+    letterSpacing: '4px',
+    marginBottom: '8px',
   },
-  title: { fontSize: '26px', fontWeight: '900', margin: '0 0 8px' },
-  sub: { fontSize: '14px', color: 'rgba(255,255,255,0.4)', marginBottom: '28px' },
+  logoAccent: {
+    color: '#FF0040',
+  },
+  logoUnderline: {
+    width: '36px',
+    height: '3px',
+    background: '#FF0040',
+    marginBottom: '20px',
+  },
+  badge: {
+    fontSize: '9px',
+    color: '#FF0040',
+    letterSpacing: '2px',
+    fontWeight: '700',
+    marginBottom: '16px',
+  },
+  title: {
+    fontSize: '36px',
+    fontWeight: '900',
+    color: '#fff',
+    textTransform: 'uppercase',
+    letterSpacing: '-1px',
+    lineHeight: 0.95,
+    marginBottom: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  titleAccent: {
+    color: '#FF0040',
+    display: 'block',
+  },
+  sub: {
+    fontSize: '11px',
+    color: 'rgba(255,255,255,0.3)',
+    letterSpacing: '0.5px',
+    marginBottom: '28px',
+  },
   errorBox: {
-    background: 'rgba(244,67,54,0.1)',
-    border: '1px solid rgba(244,67,54,0.3)',
-    borderRadius: '10px', padding: '12px 16px',
-    fontSize: '14px', color: '#f44336', marginBottom: '20px',
+    background: 'rgba(255,0,64,0.08)',
+    border: '1px solid rgba(255,0,64,0.3)',
+    borderLeft: '3px solid #FF0040',
+    padding: '10px 14px',
+    fontSize: '12px',
+    color: '#FF0040',
+    marginBottom: '20px',
+    letterSpacing: '0.3px',
   },
-  form: { display: 'flex', flexDirection: 'column', gap: '18px' },
-  inputGroup: { display: 'flex', flexDirection: 'column', gap: '8px' },
-  label: { fontSize: '13px', color: 'rgba(255,255,255,0.5)' },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
+  },
+  inputGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '6px',
+  },
+  label: {
+    fontSize: '9px',
+    color: 'rgba(255,255,255,0.4)',
+    letterSpacing: '2px',
+    fontWeight: '700',
+    borderLeft: '2px solid #FF0040',
+    paddingLeft: '8px',
+  },
   input: {
-    background: 'rgba(255,255,255,0.06)',
-    border: '1px solid rgba(255,140,0,0.2)',
-    borderRadius: '12px', padding: '14px 16px',
-    color: '#fff', fontSize: '15px', outline: 'none',
+    background: 'rgba(255,0,64,0.04)',
+    border: '1px solid rgba(255,0,64,0.2)',
+    borderLeft: '2px solid #FF0040',
+    padding: '13px 14px',
+    color: '#fff',
+    fontSize: '13px',
+    outline: 'none',
+    fontFamily: "'Inter', sans-serif",
   },
   submitBtn: {
-    background: 'linear-gradient(135deg, #ff8c00, #ffd700)',
-    border: 'none', borderRadius: '14px',
-    padding: '16px', color: '#000',
-    fontWeight: '800', fontSize: '16px',
-    cursor: 'pointer', marginTop: '8px',
+    background: '#FF0040',
+    border: 'none',
+    padding: '15px',
+    color: '#fff',
+    fontWeight: '900',
+    fontSize: '12px',
+    cursor: 'pointer',
+    letterSpacing: '3px',
+    marginTop: '8px',
+    clipPath: 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
+    transition: 'background 0.2s',
   },
-  switchText: { textAlign: 'center', marginTop: '24px', fontSize: '14px', color: 'rgba(255,255,255,0.4)' },
-  switchLink: { color: '#ff8c00', cursor: 'pointer', fontWeight: '600' },
+  divider: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    margin: '24px 0 16px',
+  },
+  dividerLine: {
+    flex: 1,
+    height: '1px',
+    background: 'rgba(255,0,64,0.12)',
+  },
+  dividerText: {
+    fontSize: '9px',
+    color: 'rgba(255,255,255,0.2)',
+    letterSpacing: '2px',
+  },
+  switchText: {
+    textAlign: 'center',
+    fontSize: '11px',
+    color: 'rgba(255,255,255,0.3)',
+    letterSpacing: '0.5px',
+  },
+  switchLink: {
+    color: '#FF0040',
+    cursor: 'pointer',
+    fontWeight: '800',
+    letterSpacing: '1px',
+  },
 };
