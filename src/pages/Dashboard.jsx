@@ -136,7 +136,7 @@ export default function Dashboard() {
           <div style={styles.customLeft}>
             <div style={styles.customRedBar} />
             <div>
-            <div style={{...styles.sectionLabel, marginBottom: '6px'}}>MISSION-03</div>
+              <div style={{...styles.sectionLabel, marginBottom: '6px'}}>MISSION-03</div>
               <div style={styles.customTitle}>CUSTOM SYLLABUS INTERVIEW</div>
               <div style={styles.customDesc}>Apni skills aur topics khud type karo — AI usi pe interview lega</div>
               <div style={styles.previewRow}>
