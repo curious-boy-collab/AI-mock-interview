@@ -162,7 +162,7 @@ export default function Interview() {
     }, 1000);
   };
 
-  const timerColor = timer > 50 ? '#4A90E2' : timer > 20 ? '#f59e0b' : '#ef4444';
+  const timerColor = timer > 50 ? 'var(--primary)' : timer > 20 ? 'var(--warning)' : 'var(--error)';
   const totalQuestions = isSkillMode ? skillGroups.reduce((s, g) => s + g.questions.length, 0) : QUESTIONS.length;
   const doneQuestions = isSkillMode
     ? skillGroups.slice(0, currentSkillIdx).reduce((s, g) => s + g.questions.length, 0) + currentQIdx
@@ -171,6 +171,9 @@ export default function Interview() {
 
   return (
     <div style={styles.container}>
+      {/* Background Glows */}
+      <div className="ambient-glow-1" />
+      <div className="ambient-glow-2" />
 
       {/* HEADER */}
       <div style={styles.header}>
@@ -192,8 +195,14 @@ export default function Interview() {
         )}
         <button style={styles.exitBtn}
           onClick={() => { stopCamera(); navigate('/dashboard'); }}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(239,68,68,0.15)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(244, 63, 94, 0.1)';
+            e.currentTarget.style.borderColor = 'var(--error)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.borderColor = 'rgba(244, 63, 94, 0.3)';
+          }}
         >
           ✕ Exit
         </button>
@@ -259,15 +268,21 @@ export default function Interview() {
             <div style={styles.setupActions}>
               <button style={styles.cameraToggleBtn}
                 onClick={cameraOn ? stopCamera : startCamera}
-                onMouseEnter={e => e.currentTarget.style.borderColor = '#4A90E2'}
-                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(74,144,226,0.3)'}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--primary)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(197, 160, 89, 0.3)'}
               >
                 {cameraOn ? '📷 Camera On' : '📷 Turn On Camera'}
               </button>
               <button style={styles.startBtn}
                 onClick={startInterview}
-                onMouseEnter={e => e.currentTarget.style.background = '#357abd'}
-                onMouseLeave={e => e.currentTarget.style.background = '#4A90E2'}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(197, 160, 89, 0.4)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 15px rgba(197, 160, 89, 0.25)';
+                }}
               >
                 Start Interview →
               </button>
@@ -307,8 +322,14 @@ export default function Interview() {
                 </div>
                 <div style={styles.skillBtnRow}>
                   <button style={styles.continueBtn} onClick={handleNextSkill}
-                    onMouseEnter={e => e.currentTarget.style.background = '#357abd'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#4A90E2'}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 20px rgba(197, 160, 89, 0.4)';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 15px rgba(197, 160, 89, 0.25)';
+                    }}
                   >
                     Continue → {skillGroups[currentSkillIdx + 1].skill}
                   </button>
@@ -344,16 +365,16 @@ export default function Interview() {
 
             {/* Controls */}
             <div style={styles.controlsRow}>
-              <div style={{ ...styles.controlCard, borderColor: isSpeaking ? '#4A90E2' : 'rgba(255,255,255,0.08)' }}>
+              <div style={{ ...styles.controlCard, borderColor: isSpeaking ? 'var(--primary)' : 'var(--border-color)' }}>
                 <span style={styles.controlIcon}>{isSpeaking ? '🔊' : micOn ? '🎤' : '🔇'}</span>
                 <span style={styles.controlLabel}>{isSpeaking ? 'AI Speaking' : micOn ? 'Mic Active' : 'Mic Off'}</span>
               </div>
-              <div style={{ ...styles.controlCard, cursor: 'pointer', borderColor: isListening ? '#4A90E2' : 'rgba(255,255,255,0.08)' }}
+              <div style={{ ...styles.controlCard, cursor: 'pointer', borderColor: isListening ? 'var(--primary)' : 'var(--border-color)' }}
                 onClick={isListening ? stopListening : startListening}>
                 <span style={styles.controlIcon}>{isListening ? '⏹' : '▶'}</span>
                 <span style={styles.controlLabel}>{isListening ? 'Stop' : 'Speak'}</span>
               </div>
-              <div style={{ ...styles.controlCard, cursor: 'pointer', borderColor: 'rgba(239,68,68,0.3)' }}
+              <div style={{ ...styles.controlCard, cursor: 'pointer', borderColor: 'rgba(244,63,94,0.3)' }}
                 onClick={() => { stopCamera(); navigate('/dashboard'); }}>
                 <span style={styles.controlIcon}>📵</span>
                 <span style={styles.controlLabel}>End</span>
@@ -380,7 +401,7 @@ export default function Interview() {
             <div style={styles.timerTopicRow}>
               <div style={styles.timerBox}>
                 <svg width="56" height="56" viewBox="0 0 56 56">
-                  <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(74,144,226,0.15)" strokeWidth="3" />
+                  <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(197, 160, 89,0.08)" strokeWidth="3" />
                   <circle cx="28" cy="28" r="24" fill="none" stroke={timerColor} strokeWidth="3"
                     strokeDasharray={`${2 * Math.PI * 24}`}
                     strokeDashoffset={`${2 * Math.PI * 24 * (1 - timer / 90)}`}
@@ -396,7 +417,7 @@ export default function Interview() {
               </div>
               <div style={styles.timerInfo}>
                 <div style={styles.timerLabel}>Time Remaining</div>
-                {isSpeaking && <div style={styles.timerPaused}>⏸ Paused while AI speaks</div>}
+                {isSpeaking && <div style={styles.timerPaused}>Paused while AI speaks</div>}
                 <div style={styles.topicBadge}>
                   {isSkillMode ? `${currentSkill.skill} → ${currentQuestions[currentQIdx].topic}` : currentQuestions[currentQIdx].topic}
                 </div>
@@ -411,8 +432,8 @@ export default function Interview() {
                 </span>
                 <button style={styles.replayBtn}
                   onClick={() => speakQuestion(currentQuestions[currentQIdx].q)}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(74,144,226,0.12)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(74,144,226,0.06)'}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(197, 160, 89,0.12)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(197, 160, 89,0.06)'}
                 >
                   🔊 Replay
                 </button>
@@ -436,8 +457,16 @@ export default function Interview() {
               style={{ ...styles.nextBtn, opacity: isSpeaking ? 0.5 : 1 }}
               onClick={handleNext}
               disabled={isSpeaking}
-              onMouseEnter={e => { if (!isSpeaking) e.currentTarget.style.background = '#357abd'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#4A90E2'; }}
+              onMouseEnter={e => {
+                if (!isSpeaking) {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(197, 160, 89, 0.4)';
+                }
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(197, 160, 89, 0.25)';
+              }}
             >
               {isSkillMode
                 ? currentQIdx + 1 === totalQuestionsInSkill
@@ -488,11 +517,13 @@ export default function Interview() {
 const styles = {
   container: {
     minHeight: '100vh',
-    background: '#080c14',
+    background: 'var(--bg-dark)',
     color: '#fff',
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
     display: 'flex',
     flexDirection: 'column',
+    position: 'relative',
+    overflow: 'hidden',
   },
 
   // Header
@@ -501,21 +532,21 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '14px 32px',
-    borderBottom: '1px solid rgba(74,144,226,0.12)',
-    background: 'rgba(8,12,20,0.95)',
-    backdropFilter: 'blur(10px)',
+    borderBottom: '1px solid var(--border-color)',
+    background: 'rgba(4, 2, 9, 0.85)',
+    backdropFilter: 'blur(16px)',
     position: 'sticky',
     top: 0,
     zIndex: 100,
   },
   headerLeft: { display: 'flex', alignItems: 'center', gap: '16px' },
   logo: { fontSize: '18px', fontWeight: '900', color: '#fff', letterSpacing: '1px' },
-  logoAccent: { color: '#4A90E2' },
+  logoAccent: { color: 'var(--text-secondary)' },
   skillTag: {
     fontSize: '11px',
-    color: '#4A90E2',
-    background: 'rgba(74,144,226,0.08)',
-    border: '1px solid rgba(74,144,226,0.2)',
+    color: 'var(--text-secondary)',
+    background: 'rgba(197, 160, 89, 0.08)',
+    border: '1px solid rgba(197, 160, 89, 0.2)',
     borderRadius: '20px',
     padding: '4px 12px',
     fontWeight: '600',
@@ -523,27 +554,27 @@ const styles = {
   headerCenter: { display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' },
   progressTrack: {
     width: '240px',
-    height: '3px',
-    background: 'rgba(74,144,226,0.12)',
-    borderRadius: '2px',
+    height: '4px',
+    background: 'rgba(197, 160, 89, 0.1)',
+    borderRadius: '4px',
   },
   progressFill: {
     height: '100%',
-    background: '#4A90E2',
-    borderRadius: '2px',
+    background: 'var(--primary)',
+    borderRadius: '4px',
     transition: 'width 0.5s ease',
   },
-  progressText: { fontSize: '11px', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.5px' },
+  progressText: { fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.5px' },
   exitBtn: {
     background: 'transparent',
-    border: '1px solid rgba(239,68,68,0.25)',
-    borderRadius: '6px',
+    border: '1px solid rgba(244, 63, 94, 0.3)',
+    borderRadius: '20px',
     padding: '7px 16px',
-    color: 'rgba(239,68,68,0.8)',
+    color: 'var(--error)',
     fontSize: '12px',
     cursor: 'pointer',
-    fontFamily: "'Inter', sans-serif",
-    transition: 'background 0.2s',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    transition: 'all 0.2s ease',
   },
 
   // Setup
@@ -553,33 +584,36 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '32px 24px',
+    position: 'relative',
+    zIndex: 1,
   },
   setupCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '16px',
+    background: 'var(--bg-card)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '24px',
+    backdropFilter: 'blur(16px)',
     padding: '40px',
     width: '100%',
     maxWidth: '520px',
   },
   setupBadge: {
     fontSize: '10px',
-    color: '#4A90E2',
+    color: 'var(--text-secondary)',
     letterSpacing: '3px',
-    fontWeight: '700',
+    fontWeight: '800',
     marginBottom: '12px',
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
   },
   setupTitle: { fontSize: '28px', fontWeight: '800', color: '#fff', marginBottom: '6px' },
-  setupSub: { fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '24px' },
+  setupSub: { fontSize: '13px', color: 'var(--text-muted)', marginBottom: '24px' },
   cameraBox: {
     width: '100%',
     aspectRatio: '16/9',
-    background: '#0d1520',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '10px',
+    background: 'rgba(197, 160, 89, 0.02)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '16px',
     overflow: 'hidden',
     position: 'relative',
     marginBottom: '16px',
@@ -589,7 +623,7 @@ const styles = {
   },
   videoPreview: { width: '100%', height: '100%', objectFit: 'cover' },
   cameraOff: { position: 'absolute', display: 'flex', flexDirection: 'column', alignItems: 'center' },
-  cameraOffText: { fontSize: '13px', color: 'rgba(255,255,255,0.25)', marginTop: '6px' },
+  cameraOffText: { fontSize: '13px', color: 'var(--text-muted)', marginTop: '6px' },
   liveTag: {
     position: 'absolute',
     top: '10px',
@@ -598,15 +632,15 @@ const styles = {
     alignItems: 'center',
     gap: '5px',
     fontSize: '10px',
-    color: '#4A90E2',
-    background: 'rgba(8,12,20,0.8)',
-    padding: '3px 8px',
-    borderRadius: '4px',
+    color: 'var(--text-secondary)',
+    background: 'rgba(4, 2, 9, 0.8)',
+    padding: '4px 10px',
+    borderRadius: '8px',
     fontWeight: '600',
   },
   liveDot: {
     width: '6px', height: '6px',
-    background: '#4caf50',
+    background: 'var(--success)',
     borderRadius: '50%',
     display: 'inline-block',
   },
@@ -614,63 +648,64 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '14px',
-    background: 'rgba(74,144,226,0.06)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '10px',
+    background: 'rgba(197, 160, 89, 0.05)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
     padding: '14px 18px',
     marginBottom: '20px',
   },
-  voiceInfoTitle: { fontSize: '13px', fontWeight: '700', color: '#4A90E2', marginBottom: '3px' },
-  voiceInfoDesc: { fontSize: '11px', color: 'rgba(255,255,255,0.35)', margin: 0 },
+  voiceInfoTitle: { fontSize: '13px', fontWeight: '700', color: 'var(--text-secondary)', marginBottom: '3px' },
+  voiceInfoDesc: { fontSize: '11px', color: 'var(--text-muted)', margin: 0 },
   badgeRow: { display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '20px' },
   infoBadge: {
-    background: 'rgba(74,144,226,0.08)',
-    border: '1px solid rgba(74,144,226,0.2)',
+    background: 'rgba(197, 160, 89, 0.08)',
+    border: '1px solid rgba(197, 160, 89, 0.15)',
     borderRadius: '20px',
     padding: '6px 14px',
     fontSize: '12px',
-    color: '#4A90E2',
+    color: 'var(--text-secondary)',
     fontWeight: '600',
   },
   setupGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px', marginBottom: '20px' },
   setupField: { display: 'flex', flexDirection: 'column', gap: '6px' },
-  setupLabel: { fontSize: '11px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.5px' },
+  setupLabel: { fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.5px' },
   select: {
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(74,144,226,0.2)',
-    borderRadius: '8px',
+    background: 'rgba(255, 255, 255, 0.02)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '10px',
     padding: '10px 14px',
     color: '#fff',
     fontSize: '13px',
     outline: 'none',
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
   setupActions: { display: 'flex', gap: '12px', marginTop: '8px' },
   cameraToggleBtn: {
     flex: 1,
     background: 'transparent',
-    border: '1px solid rgba(74,144,226,0.3)',
-    borderRadius: '8px',
+    border: '1px solid rgba(197, 160, 89, 0.3)',
+    borderRadius: '12px',
     padding: '12px',
     color: '#fff',
     fontWeight: '600',
     cursor: 'pointer',
     fontSize: '13px',
-    fontFamily: "'Inter', sans-serif",
-    transition: 'border-color 0.2s',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    transition: 'all 0.2s ease',
   },
   startBtn: {
     flex: 2,
-    background: '#4A90E2',
+    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '12px',
     padding: '12px 24px',
     color: '#fff',
     fontWeight: '700',
     fontSize: '14px',
     cursor: 'pointer',
-    fontFamily: "'Inter', sans-serif",
-    transition: 'background 0.2s',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.25)',
+    transition: 'all 0.2s ease',
   },
 
   // Skill Complete
@@ -680,11 +715,14 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '32px',
+    position: 'relative',
+    zIndex: 1,
   },
   skillCompleteCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '16px',
+    background: 'var(--bg-card)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '24px',
+    backdropFilter: 'blur(16px)',
     padding: '48px',
     textAlign: 'center',
     maxWidth: '480px',
@@ -693,72 +731,76 @@ const styles = {
   skillCompleteIcon: { fontSize: '48px', marginBottom: '12px' },
   skillCompleteBadge: {
     fontSize: '10px',
-    color: '#4A90E2',
+    color: 'var(--text-secondary)',
     letterSpacing: '3px',
     fontWeight: '700',
     marginBottom: '10px',
   },
   skillCompleteTitle: { fontSize: '28px', fontWeight: '800', marginBottom: '6px' },
-  skillCompleteSub: { fontSize: '13px', color: 'rgba(255,255,255,0.4)', marginBottom: '28px' },
+  skillCompleteSub: { fontSize: '13px', color: 'var(--text-muted)', marginBottom: '28px' },
   skillStats: { display: 'flex', justifyContent: 'center', gap: '32px', marginBottom: '24px' },
   skillStat: { textAlign: 'center' },
-  skillStatNum: { fontSize: '32px', fontWeight: '900', color: '#4A90E2' },
-  skillStatLabel: { fontSize: '11px', color: 'rgba(255,255,255,0.35)', marginTop: '4px' },
+  skillStatNum: { fontSize: '32px', fontWeight: '900', color: 'var(--primary)' },
+  skillStatLabel: { fontSize: '11px', color: 'var(--text-muted)', marginTop: '4px' },
   nextSkillBox: {
     display: 'flex',
     alignItems: 'center',
     gap: '10px',
-    background: 'rgba(74,144,226,0.06)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '8px',
+    background: 'rgba(197, 160, 89, 0.05)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
     padding: '12px 16px',
     marginBottom: '20px',
     justifyContent: 'center',
   },
-  nextSkillLabel: { fontSize: '11px', color: 'rgba(255,255,255,0.35)' },
-  nextSkillName: { fontSize: '14px', fontWeight: '700', color: '#4A90E2' },
-  nextSkillCount: { fontSize: '11px', color: 'rgba(255,255,255,0.35)' },
+  nextSkillLabel: { fontSize: '11px', color: 'var(--text-muted)' },
+  nextSkillName: { fontSize: '14px', fontWeight: '700', color: 'var(--primary)' },
+  nextSkillCount: { fontSize: '11px', color: 'var(--text-muted)' },
   skillBtnRow: { display: 'flex', flexDirection: 'column', gap: '10px' },
   continueBtn: {
-    background: '#4A90E2',
+    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '12px',
     padding: '14px 28px',
     color: '#fff',
     fontWeight: '700',
     fontSize: '14px',
     cursor: 'pointer',
-    fontFamily: "'Inter', sans-serif",
-    transition: 'background 0.2s',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.25)',
+    transition: 'all 0.2s ease',
   },
   endBtn: {
     background: 'transparent',
     border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
+    borderRadius: '12px',
     padding: '12px 28px',
-    color: 'rgba(255,255,255,0.4)',
+    color: 'var(--text-muted)',
     fontSize: '13px',
     cursor: 'pointer',
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    transition: 'all 0.2s ease',
   },
 
   // Interview Layout
   interviewLayout: {
     flex: 1,
     display: 'grid',
-    gridTemplateColumns: '1fr 1.5fr',
+    gridTemplateColumns: '1fr 1.3fr',
     gap: '24px',
     padding: '24px 32px',
-    height: 'calc(100vh - 60px)',
+    height: 'calc(100vh - 65px)',
+    position: 'relative',
+    zIndex: 1,
   },
 
   // Left Panel
   leftPanel: { display: 'flex', flexDirection: 'column', gap: '14px' },
   videoBox: {
     flex: 1,
-    background: '#0d1520',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '12px',
+    background: 'rgba(197, 160, 89, 0.02)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '16px',
     overflow: 'hidden',
     position: 'relative',
     minHeight: '240px',
@@ -775,41 +817,43 @@ const styles = {
   liveIndicator: {
     display: 'flex', alignItems: 'center', gap: '5px',
     fontSize: '10px', color: 'rgba(255,255,255,0.6)',
-    background: 'rgba(8,12,20,0.7)',
-    padding: '3px 8px', borderRadius: '4px',
+    background: 'rgba(4, 2, 9, 0.8)',
+    padding: '4px 10px', borderRadius: '8px',
   },
   aiSpeakingOverlay: {
     position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)',
-    background: 'rgba(74,144,226,0.9)',
+    background: 'var(--primary)',
+    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.35)',
     fontSize: '11px', fontWeight: '600', color: '#fff',
-    padding: '5px 14px', borderRadius: '20px',
+    padding: '6px 16px', borderRadius: '20px',
     whiteSpace: 'nowrap',
   },
   listeningOverlay: {
     position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)',
-    background: 'rgba(76,175,80,0.9)',
+    background: 'var(--success)',
+    boxShadow: '0 4px 15px rgba(16, 185, 129, 0.35)',
     fontSize: '11px', fontWeight: '600', color: '#fff',
-    padding: '5px 14px', borderRadius: '20px',
+    padding: '6px 16px', borderRadius: '20px',
     whiteSpace: 'nowrap',
   },
   controlsRow: { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px' },
   controlCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid',
-    borderRadius: '10px',
+    background: 'rgba(20, 16, 36, 0.4)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
     padding: '12px 8px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '5px',
-    transition: 'border-color 0.2s',
+    transition: 'all 0.2s ease',
   },
   controlIcon: { fontSize: '20px' },
-  controlLabel: { fontSize: '10px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.5px' },
+  controlLabel: { fontSize: '10px', color: 'var(--text-muted)', letterSpacing: '0.5px' },
   waveBox: {
-    background: 'rgba(74,144,226,0.06)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '10px',
+    background: 'rgba(197, 160, 89, 0.05)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
     padding: '12px 16px',
     display: 'flex',
     alignItems: 'center',
@@ -818,12 +862,12 @@ const styles = {
   waveInner: { display: 'flex', alignItems: 'center', gap: '3px', height: '28px' },
   waveBar: {
     width: '3px',
-    background: '#4A90E2',
+    background: 'var(--primary)',
     borderRadius: '2px',
     height: '6px',
     animation: 'waveBar 0.8s ease-in-out infinite',
   },
-  waveText: { fontSize: '11px', color: '#4A90E2', fontWeight: '500' },
+  waveText: { fontSize: '11px', color: 'var(--primary)', fontWeight: '600' },
 
   // Right Panel
   rightPanel: { display: 'flex', flexDirection: 'column', gap: '14px', overflowY: 'auto' },
@@ -835,24 +879,24 @@ const styles = {
     alignItems: 'center', justifyContent: 'center',
   },
   timerNum: { fontSize: '16px', fontWeight: '900', lineHeight: 1 },
-  timerSec: { fontSize: '9px', color: 'rgba(255,255,255,0.3)' },
+  timerSec: { fontSize: '9px', color: 'var(--text-muted)' },
   timerInfo: { flex: 1 },
-  timerLabel: { fontSize: '12px', color: 'rgba(255,255,255,0.35)', marginBottom: '4px' },
-  timerPaused: { fontSize: '11px', color: '#f59e0b', marginBottom: '6px' },
+  timerLabel: { fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' },
+  timerPaused: { fontSize: '11px', color: 'var(--warning)', marginBottom: '6px', fontWeight: '600' },
   topicBadge: {
     display: 'inline-block',
-    background: 'rgba(74,144,226,0.08)',
-    border: '1px solid rgba(74,144,226,0.2)',
+    background: 'rgba(197, 160, 89, 0.08)',
+    border: '1px solid rgba(197, 160, 89, 0.2)',
     borderRadius: '20px',
     padding: '4px 12px',
     fontSize: '11px',
-    color: '#4A90E2',
+    color: 'var(--text-secondary)',
     fontWeight: '600',
   },
   questionCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '12px',
+    background: 'rgba(20, 16, 36, 0.4)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '16px',
     padding: '20px',
   },
   questionHeader: {
@@ -861,23 +905,23 @@ const styles = {
     alignItems: 'center',
     marginBottom: '12px',
   },
-  qNumber: { fontSize: '11px', color: 'rgba(74,144,226,0.7)', fontWeight: '600', letterSpacing: '0.5px' },
+  qNumber: { fontSize: '11px', color: 'var(--text-secondary)', fontWeight: '600', letterSpacing: '0.5px' },
   replayBtn: {
-    background: 'rgba(74,144,226,0.06)',
-    border: '1px solid rgba(74,144,226,0.2)',
-    borderRadius: '6px',
+    background: 'rgba(197, 160, 89, 0.06)',
+    border: '1px solid rgba(197, 160, 89, 0.2)',
+    borderRadius: '8px',
     padding: '5px 12px',
-    color: '#4A90E2',
+    color: 'var(--text-secondary)',
     fontSize: '11px',
     cursor: 'pointer',
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
     transition: 'background 0.2s',
   },
   questionText: { fontSize: '18px', fontWeight: '600', lineHeight: 1.6, color: '#fff' },
   transcriptCard: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,255,255,0.07)',
-    borderRadius: '12px',
+    background: 'rgba(20, 16, 36, 0.3)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '16px',
     padding: '16px 20px',
     minHeight: '100px',
   },
@@ -887,48 +931,50 @@ const styles = {
     alignItems: 'center',
     marginBottom: '10px',
   },
-  transcriptLabel: { fontSize: '11px', color: 'rgba(255,255,255,0.35)', fontWeight: '600', letterSpacing: '0.5px' },
+  transcriptLabel: { fontSize: '11px', color: 'var(--text-muted)', fontWeight: '600', letterSpacing: '0.5px' },
   recordingDot: {
     fontSize: '10px',
-    color: '#ef4444',
-    fontWeight: '600',
+    color: 'var(--error)',
+    fontWeight: '700',
     animation: 'blink 1s ease-in-out infinite',
   },
   transcriptText: { fontSize: '14px', lineHeight: 1.7, color: 'rgba(255,255,255,0.75)' },
   nextBtn: {
-    background: '#4A90E2',
+    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '12px',
     padding: '14px',
     color: '#fff',
     fontWeight: '700',
     fontSize: '14px',
     cursor: 'pointer',
-    fontFamily: "'Inter', sans-serif",
-    transition: 'background 0.2s, opacity 0.2s',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.25)',
+    transition: 'all 0.2s ease',
   },
-  tipText: { fontSize: '11px', color: 'rgba(255,255,255,0.25)', textAlign: 'center' },
+  tipText: { fontSize: '11px', color: 'var(--text-muted)', textAlign: 'center' },
 
   // Finished
   finishedContainer: {
     flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px',
+    position: 'relative', zIndex: 1,
   },
   finishedCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(74,144,226,0.15)',
-    borderRadius: '16px',
+    background: 'var(--bg-card)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '24px',
     padding: '56px',
     textAlign: 'center',
     maxWidth: '440px',
     width: '100%',
   },
-  finishedBadge: { fontSize: '10px', color: '#4A90E2', letterSpacing: '3px', fontWeight: '700', marginBottom: '12px' },
+  finishedBadge: { fontSize: '10px', color: 'var(--text-secondary)', letterSpacing: '3px', fontWeight: '800', marginBottom: '12px' },
   finishedTitle: { fontSize: '32px', fontWeight: '800', marginBottom: '8px' },
-  finishedSub: { fontSize: '14px', color: 'rgba(255,255,255,0.4)', marginBottom: '24px' },
+  finishedSub: { fontSize: '14px', color: 'var(--text-muted)', marginBottom: '24px' },
   loadingRow: { display: 'flex', gap: '8px', justifyContent: 'center' },
   loadingDot: {
     width: '10px', height: '10px',
-    background: '#4A90E2',
+    background: 'var(--primary)',
     borderRadius: '50%',
     animation: 'dotPulse 1s ease-in-out infinite',
   },

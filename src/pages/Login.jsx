@@ -35,11 +35,11 @@ export default function Login() {
 
   return (
     <div style={styles.container}>
+      {/* Background Glows */}
+      <div className="ambient-glow-1" />
+      <div className="ambient-glow-2" />
+
       <div style={styles.card}>
-
-        {/* Left red rule line */}
-        <div style={styles.redRule} />
-
         <div style={styles.inner}>
           {/* Logo */}
           <div style={styles.logo}>
@@ -49,7 +49,7 @@ export default function Login() {
 
           {/* Badge */}
           <div style={styles.badge}>
-            // {isLogin ? 'SECURE LOGIN — ACTIVE' : 'CREATE ACCOUNT — ACTIVE'}
+            {isLogin ? '// SECURE LOGIN — ACTIVE' : '// CREATE ACCOUNT — ACTIVE'}
           </div>
 
           {/* Title */}
@@ -112,8 +112,8 @@ export default function Login() {
               type="submit"
               style={{ ...styles.submitBtn, opacity: loading ? 0.7 : 1 }}
               disabled={loading}
-              onMouseEnter={e => { if (!loading) e.currentTarget.style.background = '#cc0033'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = '#FF0040'; }}
+              onMouseEnter={e => { if (!loading) e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               {loading ? 'PLEASE WAIT...' : isLogin ? 'LOGIN ▶' : 'REGISTER ▶'}
             </button>
@@ -145,25 +145,26 @@ export default function Login() {
 const styles = {
   container: {
     minHeight: '100vh',
-    background: '#0a0a0a',
+    background: 'var(--bg-dark)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
-    fontFamily: "'Inter', sans-serif",
+    position: 'relative',
+    overflow: 'hidden',
   },
   card: {
     display: 'flex',
     width: '100%',
-    maxWidth: '440px',
-    background: '#111',
-    border: '1px solid rgba(255,0,64,0.15)',
+    maxWidth: '450px',
+    background: 'var(--bg-card)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '24px',
+    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.4)',
+    backdropFilter: 'blur(16px)',
+    WebkitBackdropFilter: 'blur(16px)',
     position: 'relative',
-  },
-  redRule: {
-    width: '4px',
-    background: '#FF0040',
-    flexShrink: 0,
+    zIndex: 1,
   },
   inner: {
     padding: '48px 36px',
@@ -177,17 +178,18 @@ const styles = {
     marginBottom: '8px',
   },
   logoAccent: {
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
   },
   logoUnderline: {
     width: '36px',
     height: '3px',
-    background: '#FF0040',
+    background: 'var(--primary)',
+    borderRadius: '2px',
     marginBottom: '20px',
   },
   badge: {
     fontSize: '9px',
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
     letterSpacing: '2px',
     fontWeight: '700',
     marginBottom: '16px',
@@ -204,22 +206,23 @@ const styles = {
     flexDirection: 'column',
   },
   titleAccent: {
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
     display: 'block',
   },
   sub: {
-    fontSize: '11px',
-    color: 'rgba(255,255,255,0.3)',
+    fontSize: '12px',
+    color: 'var(--text-muted)',
     letterSpacing: '0.5px',
     marginBottom: '28px',
   },
   errorBox: {
-    background: 'rgba(255,0,64,0.08)',
-    border: '1px solid rgba(255,0,64,0.3)',
-    borderLeft: '3px solid #FF0040',
-    padding: '10px 14px',
+    background: 'var(--error-glow)',
+    border: '1px solid rgba(244, 63, 94, 0.3)',
+    borderLeft: '4px solid var(--error)',
+    padding: '12px 16px',
+    borderRadius: '8px',
     fontSize: '12px',
-    color: '#FF0040',
+    color: 'var(--error)',
     marginBottom: '20px',
     letterSpacing: '0.3px',
   },
@@ -235,24 +238,25 @@ const styles = {
   },
   label: {
     fontSize: '9px',
-    color: 'rgba(255,255,255,0.4)',
+    color: 'var(--text-muted)',
     letterSpacing: '2px',
     fontWeight: '700',
-    borderLeft: '2px solid #FF0040',
+    borderLeft: '2px solid var(--primary)',
     paddingLeft: '8px',
   },
   input: {
-    background: 'rgba(255,0,64,0.04)',
-    border: '1px solid rgba(255,0,64,0.2)',
-    borderLeft: '2px solid #FF0040',
+    background: 'rgba(255, 255, 255, 0.02)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
     padding: '13px 14px',
     color: '#fff',
     fontSize: '13px',
     outline: 'none',
-    fontFamily: "'Inter', sans-serif",
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    transition: 'all 0.2s ease',
   },
   submitBtn: {
-    background: '#FF0040',
+    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
     border: 'none',
     padding: '15px',
     color: '#fff',
@@ -261,8 +265,9 @@ const styles = {
     cursor: 'pointer',
     letterSpacing: '3px',
     marginTop: '8px',
-    clipPath: 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
-    transition: 'background 0.2s',
+    borderRadius: '12px',
+    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.35)',
+    transition: 'all 0.2s ease',
   },
   divider: {
     display: 'flex',
@@ -273,23 +278,24 @@ const styles = {
   dividerLine: {
     flex: 1,
     height: '1px',
-    background: 'rgba(255,0,64,0.12)',
+    background: 'var(--border-color)',
   },
   dividerText: {
     fontSize: '9px',
-    color: 'rgba(255,255,255,0.2)',
+    color: 'var(--text-muted)',
     letterSpacing: '2px',
   },
   switchText: {
     textAlign: 'center',
     fontSize: '11px',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'var(--text-muted)',
     letterSpacing: '0.5px',
   },
   switchLink: {
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
     cursor: 'pointer',
     fontWeight: '800',
     letterSpacing: '1px',
+    marginLeft: '4px',
   },
 };

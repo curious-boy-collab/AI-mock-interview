@@ -81,8 +81,9 @@ export default function CustomSyllabus() {
 
   return (
     <div style={styles.page}>
-      <div style={styles.glowOrb1} />
-      <div style={styles.glowOrb2} />
+      {/* Background Glows */}
+      <div className="ambient-glow-1" />
+      <div className="ambient-glow-2" />
 
       <div style={styles.header}>
         <div style={styles.logo}>⚡ InterviewAI</div>
@@ -103,13 +104,13 @@ export default function CustomSyllabus() {
           {['Easy', 'Medium', 'Hard'].map(d => (
             <button key={d} style={{
               ...styles.diffBtn,
-              background: difficulty === d ? 'rgba(255,140,0,0.2)' : 'transparent',
-              borderColor: difficulty === d ? '#ff8c00' : 'rgba(255,255,255,0.1)',
-              color: difficulty === d ? '#ff8c00' : 'rgba(255,255,255,0.4)',
+              background: difficulty === d ? 'rgba(197, 160, 89, 0.15)' : 'transparent',
+              borderColor: difficulty === d ? 'var(--primary)' : 'rgba(255,255,255,0.1)',
+              color: difficulty === d ? 'var(--text-secondary)' : 'var(--text-muted)',
             }} onClick={() => setDifficulty(d)}>{d}</button>
           ))}
           <span style={styles.totalBadge}>
-            Total: <b style={{color:'#ff8c00'}}>{getTotalQuestions()} questions</b>
+            Total: <b style={{color:'var(--text-secondary)'}}>{getTotalQuestions()} questions</b>
           </span>
         </div>
 
@@ -157,8 +158,8 @@ export default function CustomSyllabus() {
         <div style={styles.exampleBox}>
           <p style={styles.exampleTitle}>💡 Example:</p>
           <p style={styles.exampleText}>
-            Skill: <b style={{color:'#ffd700'}}>Python</b> &nbsp;|&nbsp;
-            Topics: <b style={{color:'#ff8c00'}}>if else, loops, OOP, functions, list, tuple, dictionary</b>
+            Skill: <b style={{color:'var(--text-secondary)'}}>Python</b> &nbsp;|&nbsp;
+            Topics: <b style={{color:'var(--primary-hover)'}}>if else, loops, OOP, functions, list, tuple, dictionary</b>
             <br/>→ 7 questions generate honge Python ke liye
           </p>
         </div>
@@ -177,33 +178,31 @@ export default function CustomSyllabus() {
 }
 
 const styles = {
-  page: { minHeight: '100vh', background: '#0a0a0f', color: '#fff', fontFamily: 'sans-serif', position: 'relative' },
-  glowOrb1: { position: 'fixed', top: '-150px', left: '-150px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,140,0,0.08), transparent)', pointerEvents: 'none' },
-  glowOrb2: { position: 'fixed', bottom: '-150px', right: '-150px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,215,0,0.06), transparent)', pointerEvents: 'none' },
-  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 36px', borderBottom: '1px solid rgba(255,140,0,0.1)', background: 'rgba(10,10,15,0.9)', position: 'sticky', top: 0, zIndex: 10 },
-  logo: { fontSize: '20px', fontWeight: '800', background: 'linear-gradient(135deg, #ff8c00, #ffd700)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
-  backBtn: { background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '8px 16px', color: 'rgba(255,255,255,0.5)', cursor: 'pointer' },
-  content: { maxWidth: '800px', margin: '0 auto', padding: '40px 24px', position: 'relative', zIndex: 1 },
+  page: { minHeight: '100vh', background: 'var(--bg-dark)', color: '#fff', fontFamily: "'Plus Jakarta Sans', sans-serif", position: 'relative', overflowX: 'hidden' },
+  header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 36px', borderBottom: '1px solid var(--border-color)', position: 'sticky', top: 0, background: 'rgba(4, 2, 9, 0.85)', backdropFilter: 'blur(16px)', zIndex: 10 },
+  logo: { fontSize: '20px', fontWeight: '800', background: 'linear-gradient(135deg, var(--primary), var(--accent))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
+  backBtn: { background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '8px 16px', color: 'var(--text-muted)', cursor: 'pointer', transition: 'all 0.2s ease', fontFamily: "'Plus Jakarta Sans', sans-serif" },
+  content: { maxWidth: '800px', margin: '0 auto', padding: '40px 24px 80px', position: 'relative', zIndex: 1 },
   topSection: { textAlign: 'center', marginBottom: '36px' },
   title: { fontSize: '32px', fontWeight: '900', margin: '0 0 8px' },
-  sub: { fontSize: '16px', color: 'rgba(255,255,255,0.4)' },
-  errorBox: { background: 'rgba(244,67,54,0.1)', border: '1px solid rgba(244,67,54,0.3)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#f44336', marginBottom: '20px' },
+  sub: { fontSize: '16px', color: 'var(--text-muted)' },
+  errorBox: { background: 'var(--error-glow)', border: '1px solid rgba(244, 63, 94, 0.3)', borderRadius: '10px', padding: '12px 16px', fontSize: '14px', color: '#f44336', marginBottom: '20px' },
   diffRow: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px', flexWrap: 'wrap' },
-  diffLabel: { fontSize: '14px', color: 'rgba(255,255,255,0.5)' },
-  diffBtn: { border: '1px solid', borderRadius: '8px', padding: '8px 18px', cursor: 'pointer', fontSize: '14px', fontWeight: '600', transition: 'all 0.2s' },
-  totalBadge: { marginLeft: 'auto', fontSize: '14px', color: 'rgba(255,255,255,0.5)' },
+  diffLabel: { fontSize: '14px', color: 'var(--text-muted)' },
+  diffBtn: { border: '1px solid', borderRadius: '8px', padding: '8px 18px', cursor: 'pointer', fontSize: '14px', fontWeight: '600', transition: 'all 0.2s ease', fontFamily: "'Plus Jakarta Sans', sans-serif" },
+  totalBadge: { marginLeft: 'auto', fontSize: '14px', color: 'var(--text-muted)' },
   skillsList: { display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '20px' },
-  skillRow: { display: 'flex', gap: '16px', alignItems: 'flex-start', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,140,0,0.12)', borderRadius: '16px', padding: '20px' },
-  skillNum: { width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,140,0,0.15)', border: '1px solid rgba(255,140,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ff8c00', fontWeight: '800', fontSize: '14px', flexShrink: 0, marginTop: '4px' },
+  skillRow: { display: 'flex', gap: '16px', alignItems: 'flex-start', background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '20px', padding: '20px', backdropFilter: 'blur(8px)' },
+  skillNum: { width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(197, 160, 89, 0.12)', border: '1px solid rgba(197, 160, 89, 0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-secondary)', fontWeight: '800', fontSize: '14px', flexShrink: 0, marginTop: '4px' },
   skillInputs: { flex: 1, display: 'flex', flexDirection: 'column', gap: '10px' },
-  skillInput: { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,140,0,0.2)', borderRadius: '10px', padding: '12px 16px', color: '#fff', fontSize: '15px', outline: 'none', fontWeight: '600' },
-  topicsInput: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', padding: '12px 16px', color: '#fff', fontSize: '14px', outline: 'none' },
+  skillInput: { background: 'rgba(255, 255, 255, 0.02)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '12px 16px', color: '#fff', fontSize: '15px', outline: 'none', fontWeight: '600', fontFamily: "'Plus Jakarta Sans', sans-serif" },
+  topicsInput: { background: 'rgba(255, 255, 255, 0.01)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '12px 16px', color: '#fff', fontSize: '14px', outline: 'none', fontFamily: "'Plus Jakarta Sans', sans-serif" },
   topicPreview: { display: 'flex', flexWrap: 'wrap', gap: '6px' },
-  topicChip: { background: 'rgba(255,140,0,0.12)', border: '1px solid rgba(255,140,0,0.25)', borderRadius: '6px', padding: '3px 10px', fontSize: '12px', color: '#ff8c00' },
-  removeBtn: { background: 'rgba(244,67,54,0.1)', border: '1px solid rgba(244,67,54,0.2)', borderRadius: '8px', padding: '8px 10px', color: '#f44336', cursor: 'pointer', fontSize: '14px', flexShrink: 0 },
-  addBtn: { width: '100%', background: 'transparent', border: '2px dashed rgba(255,140,0,0.25)', borderRadius: '12px', padding: '14px', color: 'rgba(255,140,0,0.6)', fontSize: '15px', fontWeight: '600', cursor: 'pointer', marginBottom: '24px', transition: 'all 0.2s' },
-  exampleBox: { background: 'rgba(255,215,0,0.04)', border: '1px solid rgba(255,215,0,0.15)', borderRadius: '12px', padding: '16px 20px', marginBottom: '28px' },
-  exampleTitle: { fontSize: '13px', color: 'rgba(255,255,255,0.4)', margin: '0 0 6px' },
-  exampleText: { fontSize: '14px', color: 'rgba(255,255,255,0.6)', margin: 0, lineHeight: 1.7 },
-  startBtn: { width: '100%', background: 'linear-gradient(135deg, #ff8c00, #ffd700)', border: 'none', borderRadius: '14px', padding: '18px', color: '#000', fontWeight: '800', fontSize: '17px', cursor: 'pointer', transition: 'opacity 0.2s' },
+  topicChip: { background: 'rgba(197, 160, 89, 0.12)', border: '1px solid rgba(197, 160, 89, 0.25)', borderRadius: '6px', padding: '3px 10px', fontSize: '12px', color: 'var(--text-secondary)' },
+  removeBtn: { background: 'rgba(244,67,54,0.1)', border: '1px solid rgba(244,67,54,0.2)', borderRadius: '8px', padding: '8px 10px', color: '#f44336', cursor: 'pointer', fontSize: '14px', flexShrink: 0, fontFamily: "'Plus Jakarta Sans', sans-serif" },
+  addBtn: { width: '100%', background: 'transparent', border: '2px dashed rgba(197, 160, 89, 0.25)', borderRadius: '12px', padding: '14px', color: 'var(--text-secondary)', fontSize: '15px', fontWeight: '600', cursor: 'pointer', marginBottom: '24px', transition: 'all 0.2s ease', fontFamily: "'Plus Jakarta Sans', sans-serif" },
+  exampleBox: { background: 'rgba(197, 160, 89, 0.03)', border: '1px solid var(--border-color)', borderRadius: '16px', padding: '16px 20px', marginBottom: '28px' },
+  exampleTitle: { fontSize: '13px', color: 'var(--text-muted)', margin: '0 0 6px' },
+  exampleText: { fontSize: '14px', color: 'var(--text-muted)', margin: 0, lineHeight: 1.7 },
+  startBtn: { width: '100%', background: 'linear-gradient(135deg, var(--primary), var(--secondary))', border: 'none', borderRadius: '14px', padding: '18px', color: '#fff', fontWeight: '800', fontSize: '17px', cursor: 'pointer', transition: 'all 0.2s ease', boxShadow: '0 4px 15px rgba(197, 160, 89, 0.35)', fontFamily: "'Plus Jakarta Sans', sans-serif" },
 };

@@ -1,38 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  background-color: #0a0a0f;
-  color: #ffffff;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+:root {
+  /* Absolute luxury dark background */
+  --bg-dark: #050505;
+  --bg-card: rgba(12, 12, 12, 0.7);
+  --bg-card-hover: rgba(18, 18, 18, 0.9);
+  --border-color: rgba(197, 160, 89, 0.15); /* Thin champagne gold border */
+  --border-hover: rgba(197, 160, 89, 0.4);
+  --text-primary: #ffffff;
+  --text-secondary: #c5a059; /* Champagne Gold accent */
+  --text-muted: rgba(255, 255, 255, 0.45);
+  
+  /* Primary buttons & highlights: Gold */
+  --primary: #c5a059;
+  --primary-hover: #dfb76c;
+  --primary-glow: rgba(197, 160, 89, 0.25);
+  
+  /* Secondary / Accent: Elegant Copper Orange (matching ARCHON Make a Booking border) */
+  --secondary: #e07a5f;
+  --secondary-glow: rgba(224, 122, 95, 0.2);
+  
+  --accent: #e07a5f;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #f43f5e;
+  --error-glow: rgba(244, 63, 94, 0.15);
 }
 
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.5px;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0f;
+  background: var(--bg-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #6c63ff;
+  background: rgba(197, 160, 89, 0.2);
   border-radius: 3px;
 }
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Core Animations */
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
 @keyframes loadbar {
   0% { width: 0%; }
   50% { width: 70%; }
   100% { width: 100%; }
 }
+
 @keyframes fadeInOut {
-  0%, 100% { opacity: 0.2; }
+  0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
+}
+
+@keyframes floatOrb1 {
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(20px, -30px) scale(1.05); }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% { transform: translate(0px, 0px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(1); }
+}
+
+/* Glassmorphism Panel (Highly refined thin gold border) */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  box-shadow: 0 4px 30px 0 rgba(197, 160, 89, 0.05);
+}
+
+/* Glass button (Gold theme) */
+.glass-btn {
+  background: rgba(197, 160, 89, 0.03);
+  border: 1px solid rgba(197, 160, 89, 0.25);
+  color: var(--text-primary);
+  border-radius: 30px;
+  padding: 11px 24px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  font-family: 'Montserrat', sans-serif;
+}
+
+.glass-btn:hover {
+  background: var(--primary);
+  color: #000;
+  box-shadow: 0 0 15px var(--primary-glow);
+  transform: translateY(-1px);
+}
+
+/* Primary Accent Button: Thin Orange/Copper border (like Make a Booking button in ARCHON) */
+.primary-glow-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 30px;
+  padding: 13px 28px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.primary-glow-btn:hover {
+  background: var(--accent);
+  color: #000;
+  box-shadow: 0 0 20px rgba(224, 122, 95, 0.45);
+  transform: translateY(-2px);
+}
+
+/* Ambient glows (Soft golden bronze hue) */
+.ambient-glow-1 {
+  position: fixed;
+  top: -15%;
+  left: -15%;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: floatOrb1 25s infinite ease-in-out;
+}
+
+.ambient-glow-2 {
+  position: fixed;
+  bottom: -15%;
+  right: -15%;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.03) 0%, transparent 70%);
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+  animation: floatOrb2 30s infinite ease-in-out;
 }

@@ -42,22 +42,32 @@ export default function Dashboard() {
 
   if (loading) return (
     <div style={styles.loadingScreen}>
-      <div style={styles.loadingText}>// LOADING OPERATOR DATA...</div>
+      <div style={styles.loadingOrb} />
+      <div style={styles.loadingText}>LOADING PANEL DATA...</div>
     </div>
   );
 
   return (
     <div style={styles.page}>
+      {/* Background Glows */}
+      <div className="ambient-glow-1" />
+      <div className="ambient-glow-2" />
 
       {/* Navbar */}
       <nav style={styles.navbar}>
         <div style={styles.navLeft}>
           <div style={styles.logo}>INTERVIEW<span style={styles.logoAccent}>AI</span></div>
-          <div style={styles.navBadge}>// OPERATOR PANEL</div>
+          <div style={styles.navBadge}>{"// STUDENT PANEL"}</div>
         </div>
         <button style={styles.logoutBtn} onClick={logout}
-          onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,0,64,0.15)'}
-          onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(244, 63, 94, 0.1)';
+            e.currentTarget.style.borderColor = 'var(--error)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.borderColor = 'rgba(244, 63, 94, 0.4)';
+          }}
         >
           LOGOUT
         </button>
@@ -67,7 +77,7 @@ export default function Dashboard() {
 
         {/* Greeting */}
         <div style={styles.greetingSection}>
-          <div style={styles.greetingBadge}>// WELCOME BACK SOLDIER</div>
+          <div style={styles.greetingBadge}>{"// WELCOME BACK"}</div>
           <h1 style={styles.greetingName}>
             {user?.name?.split(' ')[0].toUpperCase()}
             <span style={styles.greetingNameAccent}>
@@ -78,26 +88,28 @@ export default function Dashboard() {
         </div>
 
         {/* Interview Option Cards */}
-        <div style={styles.sectionLabel}>// SELECT MISSION</div>
+        <div style={styles.sectionLabel}>SELECT MISSION</div>
         <div style={styles.optionsGrid}>
 
           <div style={styles.optionCard}
             onClick={startPracticeInterview}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = '#FF0040';
-              e.currentTarget.style.background = 'rgba(255,0,64,0.08)';
+              e.currentTarget.style.borderColor = 'var(--primary)';
+              e.currentTarget.style.background = 'rgba(197, 160, 89, 0.06)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(197, 160, 89, 0.08)';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255,0,64,0.2)';
-              e.currentTarget.style.background = 'rgba(255,0,64,0.04)';
+              e.currentTarget.style.borderColor = 'var(--border-color)';
+              e.currentTarget.style.background = 'rgba(20, 16, 36, 0.4)';
+              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <div style={styles.optionLeft}>
-              <div style={styles.optionRedBar} />
+              <div style={styles.optionPurpleBar} />
               <div style={styles.optionContent}>
                 <div style={styles.optionCode}>MISSION-01</div>
                 <div style={styles.optionTitle}>PRACTICE INTERVIEW</div>
-                <div style={styles.optionDesc}>Introduction round — naam, hobby, aim, background. Companies yahi se shuru karti hain!</div>
+                <div style={styles.optionDesc}>Introduction round — name, hobby, aim, background. Companies start here!</div>
                 <div style={styles.optionBadge}>8 QUESTIONS • EASY</div>
               </div>
             </div>
@@ -108,20 +120,22 @@ export default function Dashboard() {
           <div style={styles.optionCard}
             onClick={() => navigate('/resume')}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = '#FF0040';
-              e.currentTarget.style.background = 'rgba(255,0,64,0.08)';
+              e.currentTarget.style.borderColor = 'var(--primary)';
+              e.currentTarget.style.background = 'rgba(197, 160, 89, 0.06)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(197, 160, 89, 0.08)';
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = 'rgba(255,0,64,0.2)';
-              e.currentTarget.style.background = 'rgba(255,0,64,0.04)';
+              e.currentTarget.style.borderColor = 'var(--border-color)';
+              e.currentTarget.style.background = 'rgba(20, 16, 36, 0.4)';
+              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <div style={styles.optionLeft}>
-              <div style={styles.optionRedBar} />
+              <div style={styles.optionPurpleBar} />
               <div style={styles.optionContent}>
                 <div style={styles.optionCode}>MISSION-02</div>
                 <div style={styles.optionTitle}>RESUME BASED INTERVIEW</div>
-                <div style={styles.optionDesc}>Resume upload karo — AI tumhari skills detect karke personalized interview lega!</div>
+                <div style={styles.optionDesc}>Upload resume — AI detects your skills & details to take personalized interviews!</div>
                 <div style={styles.optionBadge}>AUTO SKILLS • CUSTOM</div>
               </div>
             </div>
@@ -134,9 +148,9 @@ export default function Dashboard() {
         {/* Custom Syllabus */}
         <div style={styles.customSection}>
           <div style={styles.customLeft}>
-            <div style={styles.customRedBar} />
+            <div style={styles.customPurpleBar} />
             <div>
-              <div style={{...styles.sectionLabel, marginBottom: '6px'}}>MISSION-03</div>
+              <div style={{...styles.sectionLabel, marginBottom: '6px', borderLeft: 'none', paddingLeft: 0}}>MISSION-03</div>
               <div style={styles.customTitle}>CUSTOM SYLLABUS INTERVIEW</div>
               <div style={styles.customDesc}>Apni skills aur topics khud type karo — AI usi pe interview lega</div>
               <div style={styles.previewRow}>
@@ -159,8 +173,14 @@ export default function Dashboard() {
           </div>
           <button style={styles.customBtn}
             onClick={() => navigate('/custom-syllabus')}
-            onMouseEnter={e => e.currentTarget.style.background = '#cc0033'}
-            onMouseLeave={e => e.currentTarget.style.background = '#FF0040'}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(197, 160, 89, 0.5)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 15px rgba(197, 160, 89, 0.3)';
+            }}
           >
             START ▶
           </button>
@@ -168,7 +188,7 @@ export default function Dashboard() {
 
         {/* Past Interviews */}
         <div style={styles.historySection}>
-          <div style={styles.sectionLabel}>// MISSION HISTORY</div>
+          <div style={styles.sectionLabel}>MISSION HISTORY</div>
           {history.length === 0 ? (
             <div style={styles.emptyState}>
               <div style={styles.emptyText}>NO MISSIONS COMPLETED YET</div>
@@ -178,11 +198,11 @@ export default function Dashboard() {
             <div style={styles.historyGrid}>
               {history.map((item, i) => (
                 <div key={i} style={styles.histCard}>
-                  <div style={styles.histRedBar} />
+                  <div style={styles.histPurpleBar} />
                   <div style={styles.histContent}>
                     <div style={styles.histTop}>
                       <span style={styles.histType}>{item.interviewType?.toUpperCase()}</span>
-                      <span style={styles.histScore}>{item.overallScore}/10</span>
+                      <span style={styles.histScore}>{item.overallScore}/100</span>
                     </div>
                     <div style={styles.histMeta}>{item.difficulty?.toUpperCase()} • {new Date(item.createdAt).toLocaleDateString('en-IN')}</div>
                     <div style={styles.histMeta}>{item.answers?.length || 0} QUESTIONS</div>
@@ -201,24 +221,34 @@ export default function Dashboard() {
 const styles = {
   loadingScreen: {
     minHeight: '100vh',
-    background: '#0a0a0a',
+    background: 'var(--bg-dark)',
     display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loadingOrb: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    border: '3px solid rgba(197, 160, 89, 0.15)',
+    borderTopColor: 'var(--primary)',
+    animation: 'spin 1s linear infinite',
+  },
   loadingText: {
-    color: '#FF0040',
-    fontSize: '14px',
-    letterSpacing: '3px',
-    fontFamily: 'monospace',
+    color: 'var(--text-secondary)',
+    fontSize: '13px',
+    letterSpacing: '2px',
     fontWeight: '700',
   },
 
   page: {
     minHeight: '100vh',
-    background: '#0a0a0a',
+    background: 'var(--bg-dark)',
     color: '#fff',
-    fontFamily: "'Inter', sans-serif",
+    position: 'relative',
+    overflowX: 'hidden',
   },
 
   // Navbar
@@ -227,8 +257,9 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: '16px 40px',
-    borderBottom: '1px solid rgba(255,0,64,0.2)',
-    background: '#0d0d0d',
+    borderBottom: '1px solid var(--border-color)',
+    background: 'rgba(4, 2, 9, 0.8)',
+    backdropFilter: 'blur(16px)',
     position: 'sticky',
     top: 0,
     zIndex: 100,
@@ -244,38 +275,42 @@ const styles = {
     color: '#fff',
     letterSpacing: '4px',
   },
-  logoAccent: { color: '#FF0040' },
+  logoAccent: { color: 'var(--text-secondary)' },
   navBadge: {
     fontSize: '9px',
-    color: 'rgba(255,0,64,0.6)',
+    color: 'var(--text-muted)',
     letterSpacing: '2px',
     fontWeight: '700',
-    borderLeft: '1px solid rgba(255,0,64,0.3)',
+    borderLeft: '1px solid var(--border-color)',
     paddingLeft: '16px',
   },
   logoutBtn: {
     background: 'transparent',
-    border: '1px solid rgba(255,0,64,0.4)',
-    color: '#FF0040',
+    border: '1px solid rgba(244, 63, 94, 0.4)',
+    color: 'var(--error)',
+    borderRadius: '20px',
     padding: '7px 18px',
     fontSize: '10px',
     fontWeight: '800',
     letterSpacing: '2px',
     cursor: 'pointer',
-    transition: 'background 0.2s',
-    fontFamily: "'Inter', sans-serif",
+    transition: 'all 0.2s ease',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
 
   body: {
-    padding: '40px 40px',
+    padding: '40px 40px 80px',
     maxWidth: '1100px',
+    margin: '0 auto',
+    position: 'relative',
+    zIndex: 1,
   },
 
   // Greeting
   greetingSection: { marginBottom: '36px' },
   greetingBadge: {
     fontSize: '10px',
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
     letterSpacing: '3px',
     fontWeight: '700',
     marginBottom: '8px',
@@ -286,27 +321,28 @@ const styles = {
     color: '#fff',
     textTransform: 'uppercase',
     letterSpacing: '-2px',
-    lineHeight: 1,
+    lineHeight: 1.05,
     marginBottom: '16px',
   },
   greetingNameAccent: {
-    color: '#FF0040',
+    color: 'var(--primary)',
     display: 'block',
   },
   greetingRule: {
     width: '60px',
     height: '4px',
-    background: '#FF0040',
+    background: 'var(--primary)',
+    borderRadius: '2px',
   },
 
   // Section label
   sectionLabel: {
     fontSize: '10px',
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
     letterSpacing: '3px',
-    fontWeight: '700',
+    fontWeight: '800',
     marginBottom: '14px',
-    borderLeft: '3px solid #FF0040',
+    borderLeft: '3px solid var(--primary)',
     paddingLeft: '10px',
   },
 
@@ -314,18 +350,20 @@ const styles = {
   optionsGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-    gap: '14px',
+    gap: '16px',
     marginBottom: '28px',
   },
   optionCard: {
-    background: 'rgba(255,0,64,0.04)',
-    border: '1px solid rgba(255,0,64,0.2)',
-    padding: '20px',
+    background: 'rgba(20, 16, 36, 0.4)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '20px',
+    padding: '24px',
     display: 'flex',
     alignItems: 'center',
     gap: '16px',
     cursor: 'pointer',
-    transition: 'border-color 0.2s, background 0.2s',
+    backdropFilter: 'blur(8px)',
+    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   },
   optionLeft: {
     display: 'flex',
@@ -333,16 +371,17 @@ const styles = {
     flex: 1,
     alignItems: 'flex-start',
   },
-  optionRedBar: {
+  optionPurpleBar: {
     width: '3px',
-    background: '#FF0040',
+    background: 'var(--primary)',
     alignSelf: 'stretch',
+    borderRadius: '4px',
     flexShrink: 0,
   },
   optionContent: { flex: 1 },
   optionCode: {
     fontSize: '9px',
-    color: 'rgba(255,0,64,0.6)',
+    color: 'var(--text-muted)',
     letterSpacing: '2px',
     fontWeight: '700',
     marginBottom: '4px',
@@ -356,36 +395,39 @@ const styles = {
   },
   optionDesc: {
     fontSize: '12px',
-    color: 'rgba(255,255,255,0.35)',
+    color: 'var(--text-muted)',
     lineHeight: 1.5,
     marginBottom: '10px',
   },
   optionBadge: {
     display: 'inline-block',
     fontSize: '9px',
-    color: '#FF0040',
-    border: '1px solid rgba(255,0,64,0.3)',
-    padding: '3px 10px',
+    color: 'var(--text-secondary)',
+    border: '1px solid var(--border-color)',
+    padding: '4px 10px',
+    borderRadius: '4px',
     letterSpacing: '1px',
     fontWeight: '700',
   },
   optionIcon: { fontSize: '32px', flexShrink: 0 },
   optionArrow: {
     fontSize: '16px',
-    color: '#FF0040',
+    color: 'var(--primary)',
     fontWeight: '900',
     flexShrink: 0,
   },
 
   // Custom Section
   customSection: {
-    background: 'rgba(255,0,64,0.03)',
-    border: '1px solid rgba(255,0,64,0.18)',
-    padding: '24px',
+    background: 'rgba(20, 16, 36, 0.3)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '20px',
+    padding: '28px',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '20px',
+    backdropFilter: 'blur(8px)',
     marginBottom: '36px',
   },
   customLeft: {
@@ -394,10 +436,11 @@ const styles = {
     flex: 1,
     alignItems: 'flex-start',
   },
-  customRedBar: {
+  customPurpleBar: {
     width: '3px',
-    background: '#FF0040',
+    background: 'var(--primary)',
     alignSelf: 'stretch',
+    borderRadius: '4px',
     flexShrink: 0,
   },
   customTitle: {
@@ -410,14 +453,15 @@ const styles = {
   },
   customDesc: {
     fontSize: '12px',
-    color: 'rgba(255,255,255,0.35)',
+    color: 'var(--text-muted)',
     marginBottom: '14px',
     lineHeight: 1.5,
   },
   previewRow: { display: 'flex', gap: '10px', flexWrap: 'wrap' },
   previewCard: {
-    background: 'rgba(255,255,255,0.03)',
-    border: '1px solid rgba(255,255,255,0.06)',
+    background: 'rgba(255,255,255,0.01)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '8px',
     padding: '10px 14px',
     display: 'flex',
     flexDirection: 'column',
@@ -426,19 +470,20 @@ const styles = {
   previewSkill: {
     fontSize: '11px',
     fontWeight: '900',
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
     letterSpacing: '1px',
   },
   previewTopics: { display: 'flex', flexWrap: 'wrap', gap: '4px' },
   previewChip: {
-    background: 'rgba(255,0,64,0.08)',
-    border: '1px solid rgba(255,0,64,0.2)',
+    background: 'rgba(197, 160, 89, 0.05)',
+    border: '1px solid rgba(197, 160, 89, 0.15)',
+    borderRadius: '4px',
     padding: '2px 7px',
     fontSize: '10px',
-    color: 'rgba(255,255,255,0.45)',
+    color: 'var(--text-muted)',
   },
   customBtn: {
-    background: '#FF0040',
+    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
     border: 'none',
     padding: '14px 28px',
     color: '#fff',
@@ -447,22 +492,25 @@ const styles = {
     letterSpacing: '2px',
     cursor: 'pointer',
     flexShrink: 0,
-    clipPath: 'polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%)',
-    transition: 'background 0.2s',
-    fontFamily: "'Inter', sans-serif",
+    borderRadius: '12px',
+    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.3)',
+    transition: 'all 0.2s ease',
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
 
   // History
   historySection: { },
   emptyState: {
-    border: '1px dashed rgba(255,0,64,0.2)',
+    border: '1px dashed var(--border-color)',
+    borderRadius: '16px',
     padding: '40px',
     textAlign: 'center',
+    background: 'rgba(255,255,255,0.01)',
   },
   emptyText: {
     fontSize: '14px',
     fontWeight: '800',
-    color: 'rgba(255,255,255,0.3)',
+    color: 'var(--text-muted)',
     letterSpacing: '2px',
     marginBottom: '8px',
   },
@@ -477,18 +525,20 @@ const styles = {
     gap: '12px',
   },
   histCard: {
-    background: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,0,64,0.15)',
+    background: 'rgba(20, 16, 36, 0.3)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '12px',
     display: 'flex',
     overflow: 'hidden',
-    transition: 'border-color 0.2s',
+    backdropFilter: 'blur(8px)',
+    transition: 'all 0.2s ease',
   },
-  histRedBar: {
+  histPurpleBar: {
     width: '3px',
-    background: '#FF0040',
+    background: 'var(--primary)',
     flexShrink: 0,
   },
-  histContent: { padding: '14px 14px' },
+  histContent: { padding: '14px 14px', flex: 1 },
   histTop: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -504,11 +554,11 @@ const styles = {
   histScore: {
     fontSize: '18px',
     fontWeight: '900',
-    color: '#FF0040',
+    color: 'var(--text-secondary)',
   },
   histMeta: {
     fontSize: '10px',
-    color: 'rgba(255,255,255,0.25)',
+    color: 'var(--text-muted)',
     letterSpacing: '0.5px',
     marginTop: '3px',
   },
