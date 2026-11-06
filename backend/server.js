@@ -33,6 +33,10 @@ app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Interview AI Backend is running' });
 });
 
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', time: new Date().toISOString() });
+});
+
 app.listen(PORT, () => {
   console.log(`\n🚀 Interview AI Backend running on http://localhost:${PORT}`);
   console.log(`🤖 Groq AI: ${process.env.GROQ_API_KEY ? 'Connected' : '⚠️  No API key found!'}`);
