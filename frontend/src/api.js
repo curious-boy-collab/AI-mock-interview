@@ -3,7 +3,7 @@ import axios from 'axios';
 const API = axios.create({
   baseURL: process.env.REACT_APP_API_URL 
     ? `${process.env.REACT_APP_API_URL}/api`
-    : 'http://localhost:5000/api'
+    : 'http://localhost:5001/api'
 });
 
 // Har request mein token automatically add karo

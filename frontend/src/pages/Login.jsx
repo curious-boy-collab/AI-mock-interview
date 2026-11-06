@@ -28,7 +28,12 @@ export default function Login() {
         setError(res.data?.message || 'Something went wrong');
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Server error');
+      const errorMsg =
+        err.response?.data?.message ||
+        (err.code === 'ERR_NETWORK' || err.message === 'Network Error'
+          ? 'Backend server connect nahi ho raha hai (Make sure backend 5001 port par chal raha hai)'
+          : err.message || 'Server error');
+      setError(errorMsg);
     }
     setLoading(false);
   };

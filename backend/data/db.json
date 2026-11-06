@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": "321891af-b036-47f3-914c-8d216cc9d9e4",
+      "name": "Nitin Jaiswal",
+      "email": "nitin@example.com",
+      "password": "$2a$10$JMVcyk/w0QSCNE/A5zC.V.Kk050mOqmBdy.kVJvEAsMHqCUp8R44u",
+      "createdAt": "2026-08-18T12:53:07.547Z"
+    },
+    {
+      "id": "e6d1b781-1b8a-4d69-99d5-60e04b2cc87e",
+      "name": "ANSARI ",
+      "email": "ansarimerhran24@gmail.com",
+      "password": "$2a$10$8QvH93a2uaW8I5nrj4ZUI.Cah26u/0aQKliY0s3Eue9kRs3VqyGTy",
+      "createdAt": "2026-08-18T12:56:20.916Z"
+    },
+    {
+      "id": "371a730c-f9fb-4b07-9f1d-76fb8d110bb2",
+      "name": "Nitin",
+      "email": "jaiswaln885@gmail.com",
+      "password": "$2a$10$Zas1yaGQkvnihfQdLWx8BOhBL0ysnmxrsItpDFMlDexj39BhVOmSS",
+      "createdAt": "2026-11-06T05:18:00.091Z"
+    }
+  ],
+  "interviews": []
+}
