@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getMe, getHistory } from '../api';
 
+// Same serif font as the landing page "Dream Interview" heading
+const SERIF = "'Playfair Display', serif";
+const FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&display=swap');";
+
 const PRACTICE_QUESTIONS = [
   { q: 'Tell me about yourself — your name, where you are from, and your background.', topic: 'Introduction', skill: 'Introduction' },
   { q: 'Where are you from and how has your journey been so far?', topic: 'Personal', skill: 'Introduction' },
@@ -49,6 +53,8 @@ export default function Dashboard() {
 
   return (
     <div style={styles.page}>
+      <style>{FONT_IMPORT}</style>
+
       {/* Background Glows */}
       <div className="ambient-glow-1" />
       <div className="ambient-glow-2" />
@@ -79,9 +85,9 @@ export default function Dashboard() {
         <div style={styles.greetingSection}>
           <div style={styles.greetingBadge}>{"// WELCOME BACK"}</div>
           <h1 style={styles.greetingName}>
-            {user?.name?.split(' ')[0].toUpperCase()}
+            {user?.name?.split(' ')[0]}
             <span style={styles.greetingNameAccent}>
-              {user?.name?.split(' ').slice(1).join(' ').toUpperCase()}
+              {user?.name?.split(' ').slice(1).join(' ')}
             </span>
           </h1>
           <div style={styles.greetingRule} />
@@ -94,21 +100,19 @@ export default function Dashboard() {
           <div style={styles.optionCard}
             onClick={startPracticeInterview}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--primary)';
-              e.currentTarget.style.background = 'rgba(197, 160, 89, 0.06)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(197, 160, 89, 0.08)';
+              e.currentTarget.style.borderColor = 'var(--border-hover)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = 'var(--border-color)';
-              e.currentTarget.style.background = 'rgba(20, 16, 36, 0.4)';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.04)';
             }}
           >
             <div style={styles.optionLeft}>
               <div style={styles.optionPurpleBar} />
               <div style={styles.optionContent}>
                 <div style={styles.optionCode}>MISSION-01</div>
-                <div style={styles.optionTitle}>PRACTICE INTERVIEW</div>
+                <div style={styles.optionTitle}>Practice Interview</div>
                 <div style={styles.optionDesc}>Introduction round — name, hobby, aim, background. Companies start here!</div>
                 <div style={styles.optionBadge}>8 QUESTIONS • EASY</div>
               </div>
@@ -120,21 +124,19 @@ export default function Dashboard() {
           <div style={styles.optionCard}
             onClick={() => navigate('/resume')}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = 'var(--primary)';
-              e.currentTarget.style.background = 'rgba(197, 160, 89, 0.06)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(197, 160, 89, 0.08)';
+              e.currentTarget.style.borderColor = 'var(--border-hover)';
+              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = 'var(--border-color)';
-              e.currentTarget.style.background = 'rgba(20, 16, 36, 0.4)';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.04)';
             }}
           >
             <div style={styles.optionLeft}>
               <div style={styles.optionPurpleBar} />
               <div style={styles.optionContent}>
                 <div style={styles.optionCode}>MISSION-02</div>
-                <div style={styles.optionTitle}>RESUME BASED INTERVIEW</div>
+                <div style={styles.optionTitle}>Resume Based Interview</div>
                 <div style={styles.optionDesc}>Upload resume — AI detects your skills & details to take personalized interviews!</div>
                 <div style={styles.optionBadge}>AUTO SKILLS • CUSTOM</div>
               </div>
@@ -151,7 +153,7 @@ export default function Dashboard() {
             <div style={styles.customPurpleBar} />
             <div>
               <div style={{...styles.sectionLabel, marginBottom: '6px', borderLeft: 'none', paddingLeft: 0}}>MISSION-03</div>
-              <div style={styles.customTitle}>CUSTOM SYLLABUS INTERVIEW</div>
+              <div style={styles.customTitle}>Custom Syllabus Interview</div>
               <div style={styles.customDesc}>Apni skills aur topics khud type karo — AI usi pe interview lega</div>
               <div style={styles.previewRow}>
                 {[
@@ -191,7 +193,7 @@ export default function Dashboard() {
           <div style={styles.sectionLabel}>MISSION HISTORY</div>
           {history.length === 0 ? (
             <div style={styles.emptyState}>
-              <div style={styles.emptyText}>NO MISSIONS COMPLETED YET</div>
+              <div style={styles.emptyText}>No missions completed yet</div>
               <div style={styles.emptySubText}>Start your first interview to see history here</div>
             </div>
           ) : (
@@ -246,7 +248,7 @@ const styles = {
   page: {
     minHeight: '100vh',
     background: 'var(--bg-dark)',
-    color: '#fff',
+    color: 'var(--text-primary)',
     position: 'relative',
     overflowX: 'hidden',
   },
@@ -258,7 +260,7 @@ const styles = {
     alignItems: 'center',
     padding: '16px 40px',
     borderBottom: '1px solid var(--border-color)',
-    background: 'rgba(4, 2, 9, 0.8)',
+    background: 'var(--bg-navbar)',
     backdropFilter: 'blur(16px)',
     position: 'sticky',
     top: 0,
@@ -272,7 +274,7 @@ const styles = {
   logo: {
     fontSize: '16px',
     fontWeight: '900',
-    color: '#fff',
+    color: 'var(--text-primary)',
     letterSpacing: '4px',
   },
   logoAccent: { color: 'var(--text-secondary)' },
@@ -306,7 +308,7 @@ const styles = {
     zIndex: 1,
   },
 
-  // Greeting
+  // Greeting — serif like "Dream Interview"
   greetingSection: { marginBottom: '36px' },
   greetingBadge: {
     fontSize: '10px',
@@ -316,16 +318,19 @@ const styles = {
     marginBottom: '8px',
   },
   greetingName: {
-    fontSize: '52px',
-    fontWeight: '900',
-    color: '#fff',
-    textTransform: 'uppercase',
+    fontFamily: SERIF,
+    fontSize: '76px',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
+    textTransform: 'none',
     letterSpacing: '-2px',
-    lineHeight: 1.05,
-    marginBottom: '16px',
+    lineHeight: 1,
+    marginBottom: '18px',
   },
   greetingNameAccent: {
-    color: 'var(--primary)',
+    fontStyle: 'italic',
+    fontWeight: '400',
+    color: 'var(--text-secondary)',
     display: 'block',
   },
   greetingRule: {
@@ -354,7 +359,7 @@ const styles = {
     marginBottom: '28px',
   },
   optionCard: {
-    background: 'rgba(20, 16, 36, 0.4)',
+    background: 'var(--bg-card)',
     border: '1px solid var(--border-color)',
     borderRadius: '20px',
     padding: '24px',
@@ -362,7 +367,7 @@ const styles = {
     alignItems: 'center',
     gap: '16px',
     cursor: 'pointer',
-    backdropFilter: 'blur(8px)',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   },
   optionLeft: {
@@ -387,11 +392,13 @@ const styles = {
     marginBottom: '4px',
   },
   optionTitle: {
-    fontSize: '14px',
-    fontWeight: '900',
-    color: '#fff',
-    letterSpacing: '1px',
-    marginBottom: '6px',
+    fontFamily: SERIF,
+    fontSize: '26px',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
+    letterSpacing: '-0.5px',
+    lineHeight: 1.15,
+    marginBottom: '8px',
   },
   optionDesc: {
     fontSize: '12px',
@@ -419,7 +426,7 @@ const styles = {
 
   // Custom Section
   customSection: {
-    background: 'rgba(20, 16, 36, 0.3)',
+    background: 'var(--bg-card)',
     border: '1px solid var(--border-color)',
     borderRadius: '20px',
     padding: '28px',
@@ -427,7 +434,7 @@ const styles = {
     justifyContent: 'space-between',
     alignItems: 'center',
     gap: '20px',
-    backdropFilter: 'blur(8px)',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
     marginBottom: '36px',
   },
   customLeft: {
@@ -444,12 +451,13 @@ const styles = {
     flexShrink: 0,
   },
   customTitle: {
-    fontSize: '16px',
-    fontWeight: '900',
-    color: '#fff',
-    letterSpacing: '1px',
-    marginBottom: '6px',
-    textTransform: 'uppercase',
+    fontFamily: SERIF,
+    fontSize: '30px',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
+    letterSpacing: '-0.5px',
+    lineHeight: 1.15,
+    marginBottom: '8px',
   },
   customDesc: {
     fontSize: '12px',
@@ -459,7 +467,7 @@ const styles = {
   },
   previewRow: { display: 'flex', gap: '10px', flexWrap: 'wrap' },
   previewCard: {
-    background: 'rgba(255,255,255,0.01)',
+    background: 'var(--bg-card-alt)',
     border: '1px solid var(--border-color)',
     borderRadius: '8px',
     padding: '10px 14px',
@@ -470,20 +478,20 @@ const styles = {
   previewSkill: {
     fontSize: '11px',
     fontWeight: '900',
-    color: 'var(--text-secondary)',
+    color: 'var(--text-primary)',
     letterSpacing: '1px',
   },
   previewTopics: { display: 'flex', flexWrap: 'wrap', gap: '4px' },
   previewChip: {
-    background: 'rgba(197, 160, 89, 0.05)',
-    border: '1px solid rgba(197, 160, 89, 0.15)',
+    background: '#ffffff',
+    border: '1px solid var(--border-color)',
     borderRadius: '4px',
     padding: '2px 7px',
     fontSize: '10px',
     color: 'var(--text-muted)',
   },
   customBtn: {
-    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
+    background: '#09090b',
     border: 'none',
     padding: '14px 28px',
     color: '#fff',
@@ -493,7 +501,7 @@ const styles = {
     cursor: 'pointer',
     flexShrink: 0,
     borderRadius: '12px',
-    boxShadow: '0 4px 15px rgba(197, 160, 89, 0.3)',
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.15)',
     transition: 'all 0.2s ease',
     fontFamily: "'Plus Jakarta Sans', sans-serif",
   },
@@ -505,18 +513,19 @@ const styles = {
     borderRadius: '16px',
     padding: '40px',
     textAlign: 'center',
-    background: 'rgba(255,255,255,0.01)',
+    background: 'var(--bg-card-alt)',
   },
   emptyText: {
-    fontSize: '14px',
-    fontWeight: '800',
+    fontFamily: SERIF,
+    fontSize: '26px',
+    fontStyle: 'italic',
+    fontWeight: '400',
     color: 'var(--text-muted)',
-    letterSpacing: '2px',
     marginBottom: '8px',
   },
   emptySubText: {
     fontSize: '12px',
-    color: 'rgba(255,255,255,0.2)',
+    color: 'var(--text-muted)',
     letterSpacing: '0.5px',
   },
   historyGrid: {
@@ -525,12 +534,12 @@ const styles = {
     gap: '12px',
   },
   histCard: {
-    background: 'rgba(20, 16, 36, 0.3)',
+    background: 'var(--bg-card)',
     border: '1px solid var(--border-color)',
     borderRadius: '12px',
     display: 'flex',
     overflow: 'hidden',
-    backdropFilter: 'blur(8px)',
+    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.03)',
     transition: 'all 0.2s ease',
   },
   histPurpleBar: {
@@ -548,13 +557,14 @@ const styles = {
   histType: {
     fontSize: '10px',
     fontWeight: '800',
-    color: '#fff',
+    color: 'var(--text-primary)',
     letterSpacing: '1px',
   },
   histScore: {
-    fontSize: '18px',
-    fontWeight: '900',
-    color: 'var(--text-secondary)',
+    fontFamily: SERIF,
+    fontSize: '24px',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
   },
   histMeta: {
     fontSize: '10px',
